@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "industry_id": "media",
+  "industry": "Media, Publishing & Entertainment",
+  "description": "Professional subscriber, editorial, newsletter, event, renewal, payment, and audience-engagement emails for publishers and media platforms.",
+  "placeholder_format": "Use double-brace variables, for example {{customer_name}}. Replace every placeholder before sending.",
+  "templates": [
+    {
+      "id": "media_newsletter_welcome",
+      "name": "Newsletter Subscription Welcome",
+      "type": "lifecycle",
+      "trigger": "Immediately after a reader confirms a newsletter subscription",
+      "subject": "Welcome to the {{publication_name}} Newsletter",
+      "body": "Dear {{subscriber_name}},\n\nThank you for subscribing to {{publication_name}}. You’ll receive our latest articles, editorial highlights, important updates, and selected stories directly in your inbox.\n\nExplore our latest content: {{website_url}}\n\nWe appreciate having you as a reader.\n\nBest regards,\nEditorial Team\n{{publication_name}}"
+    },
+    {
+      "id": "media_subscription_confirmed",
+      "name": "Subscription Confirmation",
+      "type": "transactional",
+      "trigger": "After a paid or free subscription is activated",
+      "subject": "Your Subscription Is Confirmed",
+      "body": "Dear {{subscriber_name}},\n\nYour subscription to {{publication_name}} has been successfully activated.\n\nSubscription details:\n- Plan: {{plan_name}}\n- Start date: {{start_date}}\n- Renewal date: {{renewal_date}}\n- Subscription ID: {{subscription_id}}\n\nAccess your subscription: {{subscription_url}}\n\nThank you for supporting {{publication_name}}.\n\nRegards,\nSubscription Services Team"
+    },
+    {
+      "id": "media_daily_briefing",
+      "name": "Daily News Briefing",
+      "type": "editorial",
+      "trigger": "At the reader’s selected daily briefing time",
+      "subject": "Your Daily Briefing – {{date}}",
+      "body": "Dear {{subscriber_name}},\n\nHere are today’s important stories selected by our editorial team.\n\nToday’s highlights:\n1. {{headline_one}} — {{summary_one}}\n2. {{headline_two}} — {{summary_two}}\n3. {{headline_three}} — {{summary_three}}\n4. {{headline_four}} — {{summary_four}}\n\nRead the full stories: {{news_url}}\n\nStay informed with {{publication_name}}.\n\nBest regards,\nEditorial Team"
+    },
+    {
+      "id": "media_breaking_news",
+      "name": "Breaking News Alert",
+      "type": "editorial",
+      "trigger": "When editors publish a verified breaking-news alert",
+      "subject": "Breaking News: {{headline}}",
+      "body": "Dear {{subscriber_name}},\n\nWe are reporting an important development concerning {{topic}}.\n\nWhat happened: {{verified_summary}}\nWhere: {{location}}\nWhen: {{date_time}}\nLatest information: {{latest_information}}\n\nRead the latest updates: {{article_url}}\n\nWe will update this story as more confirmed information becomes available.\n\nRegards,\nNewsroom Team\n{{publication_name}}"
+    },
+    {
+      "id": "media_weekly_digest",
+      "name": "Weekly Content Digest",
+      "type": "editorial",
+      "trigger": "On the reader’s selected weekly digest schedule",
+      "subject": "Your Weekly Reading List – {{week}}",
+      "body": "Dear {{subscriber_name}},\n\nHere is your weekly selection of recently published and widely read stories.\n\nThis week’s highlights:\n- {{article_one}}\n- {{article_two}}\n- {{article_three}}\n- {{article_four}}\n\nExplore the full collection: {{digest_url}}\n\nThank you for reading {{publication_name}}.\n\nBest regards,\nEditorial Team"
+    },
+    {
+      "id": "media_new_article",
+      "name": "New Article Publication",
+      "type": "editorial",
+      "trigger": "When a new article is published and selected for subscriber distribution",
+      "subject": "New Article: {{article_title}}",
+      "body": "Dear {{subscriber_name}},\n\nWe have just published a new article that may interest you.\n\nTitle: {{article_title}}\nAuthor: {{author_name}}\nPublished: {{publication_date}}\n\n{{article_introduction}}\n\nRead the full article: {{article_url}}\n\nWe hope you find it informative.\n\nRegards,\nEditorial Team\n{{publication_name}}"
+    },
+    {
+      "id": "media_renewal_reminder",
+      "name": "Subscription Renewal Reminder",
+      "type": "transactional",
+      "trigger": "Before a subscription is due to renew",
+      "subject": "Your {{publication_name}} Subscription Renews Soon",
+      "body": "Dear {{subscriber_name}},\n\nThis is a reminder that your subscription is scheduled to renew on {{renewal_date}}.\n\nSubscription details:\n- Plan: {{plan_name}}\n- Renewal amount: {{amount}}\n- Renewal date: {{renewal_date}}\n\nManage your subscription: {{account_url}}\n\nPlease review your subscription settings before the renewal date if you would like to make changes.\n\nRegards,\nSubscription Team"
+    },
+    {
+      "id": "media_payment_failed",
+      "name": "Subscription Payment Failure",
+      "type": "transactional",
+      "trigger": "When a subscription payment cannot be processed",
+      "subject": "Payment Issue with Your Subscription",
+      "body": "Dear {{subscriber_name}},\n\nWe were unable to process the payment for your {{publication_name}} subscription.\n\nAmount: {{amount}}\nPayment date: {{payment_date}}\nStatus: {{payment_status}}\n\nPlease review your payment details and retry the payment through your account.\n\nUpdate payment: {{payment_url}}\n\nFor assistance, contact {{support_email}}.\n\nRegards,\nBilling Team"
+    },
+    {
+      "id": "media_event_invitation",
+      "name": "Event Invitation",
+      "type": "marketing",
+      "trigger": "When an eligible subscriber is invited to an event",
+      "subject": "You’re Invited: {{event_name}}",
+      "body": "Dear {{subscriber_name}},\n\nWe are pleased to invite you to {{event_name}}, organised by {{organisation_name}}.\n\nEvent details:\n- Date: {{event_date}}\n- Time: {{event_time}} {{time_zone}}\n- Venue or platform: {{venue_or_online_link}}\n- Speakers: {{speaker_details}}\n\nRegister here: {{registration_url}}\n\nWe look forward to welcoming you.\n\nBest regards,\nEvents Team\n{{organisation_name}}"
+    },
+    {
+      "id": "media_feedback_request",
+      "name": "Reader Feedback Request",
+      "type": "engagement",
+      "trigger": "After a defined period of readership or following a reader interaction",
+      "subject": "Help Us Improve {{publication_name}}",
+      "body": "Dear {{subscriber_name}},\n\nYour feedback helps us create more relevant and valuable content. We would appreciate a few minutes of your time to share your experience with our publication.\n\nShare your feedback: {{survey_url}}\n\nThank you for supporting our work.\n\nRegards,\nAudience Engagement Team\n{{publication_name}}"
+    },
+    {
+      "id": "media_cancellation_confirmed",
+      "name": "Subscription Cancellation Confirmation",
+      "type": "transactional",
+      "trigger": "After a subscription cancellation is completed",
+      "subject": "Your Subscription Cancellation Is Confirmed",
+      "body": "Dear {{subscriber_name}},\n\nThis email confirms that your {{publication_name}} subscription cancellation has been processed.\n\nSubscription: {{plan_name}}\nCancellation date: {{cancellation_date}}\nAccess end date: {{access_end_date}}\n\nYou can review your account details here: {{account_url}}\n\nThank you for being part of our readership. We hope to welcome you back in the future.\n\nRegards,\nSubscription Services Team"
+    },
+    {
+      "id": "media_reengagement",
+      "name": "Inactive Subscriber Re-engagement",
+      "type": "lifecycle",
+      "trigger": "When a subscriber has not engaged for a defined period",
+      "subject": "There’s More to Discover at {{publication_name}}",
+      "body": "Dear {{subscriber_name}},\n\nWe noticed you haven’t visited {{publication_name}} recently. Our editorial team continues to publish new stories, reports, and insights across a range of topics.\n\nCatch up on our latest content: {{latest_content_url}}\n\nYou can manage your email preferences here: {{preferences_url}}.\n\nBest regards,\nAudience Engagement Team\n{{publication_name}}"
+    }
+  ]
+}

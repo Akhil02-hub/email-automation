@@ -1,0 +1,20 @@
+# Email Automation Center
+
+Author: AmaraChintha Akhil
+
+> A self-hosted, multi-industry email automation tool built with Node.js, Express, PostgreSQL, and vanilla JavaScript. 
+
+## Architecture
+- **Backend:** Node.js, Express, PostgreSQL (`pg`), node-cron.
+- **Frontend:** Single Page Application (`email_automation.html`), Vanilla JS.
+- **Email Provider:** Gmail REST API (OAuth 2.0). No SMTP.
+- **Templating:** Dynamic JSON templates loaded based on `BUSINESS_TYPE` (ecommerce, saas, finance, media, healthcare, general).
+
+## Deployment
+Requires `.env` file with PostgreSQL URL, JWT Secret, Gmail OAuth credentials, and admin password hash. Can be run via `node server.js` or `docker-compose up`.
+
+## Core Concepts
+1. **Admin Dashboard:** Protected by JWT cookie. Allows viewing logs, editing templates, and sending bulk emails.
+2. **Automation Queue:** An `email_queue` table processed by a cron job every 5 minutes. Deduplicates emails using `related_id`.
+3. **Templates:** Defined in `templates/*.json` with `{{merge_fields}}`.
+4. **Webhooks:** External apps can trigger emails via `POST /api/webhooks/event` using an `X-API-Key`.

@@ -1,0 +1,142 @@
+[
+    {
+        "id": "welcome",
+        "name": "Welcome Email",
+        "subject": "Welcome to {{business_name}}!",
+        "html": "<p>Dear {{customer_name}},</p><p>Welcome to {{business_name}}! We are delighted to have you with us.</p><p>Thank you for joining our community. We look forward to serving you.</p><p>Best regards,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nWelcome to {{business_name}}! We are delighted to have you with us.\n\nThank you for joining our community. We look forward to serving you.\n\nBest regards,\n{{business_name}} Team"
+    },
+    {
+        "id": "signup_day1",
+        "name": "Signup - Getting Started",
+        "subject": "Getting started with {{business_name}}",
+        "html": "<p>Dear {{customer_name}},</p><p>We are excited to have you on board. Here are a few things you can do to get started:</p><p>1. Complete your profile.<br>2. Explore our services.<br>3. Reach out if you need help.</p><p>Best regards,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nWe are excited to have you on board. Here are a few things you can do to get started:\n\n1. Complete your profile.\n2. Explore our services.\n3. Reach out if you need help.\n\nBest regards,\n{{business_name}} Team"
+    },
+    {
+        "id": "signup_day3",
+        "name": "Signup - Learn More",
+        "subject": "Discover more about {{business_name}}",
+        "html": "<p>Dear {{customer_name}},</p><p>Did you know we offer a variety of solutions tailored to your needs?</p><p>Take a moment to explore our website and see how we can help you.</p><p><a href=\"{{site_url}}\">Learn more</a></p><p>Best regards,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nDid you know we offer a variety of solutions tailored to your needs?\n\nTake a moment to explore our website and see how we can help you.\n\nLearn more: {{site_url}}\n\nBest regards,\n{{business_name}} Team"
+    },
+    {
+        "id": "signup_day5",
+        "name": "Signup - Gentle Reminder",
+        "subject": "We're here when you need us",
+        "html": "<p>Dear {{customer_name}},</p><p>Just a friendly reminder that we are here to help. Whenever you are ready, we would love to assist you.</p><p><a href=\"{{site_url}}\">Get in touch</a></p><p>Best regards,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nJust a friendly reminder that we are here to help. Whenever you are ready, we would love to assist you.\n\nGet in touch: {{site_url}}\n\nBest regards,\n{{business_name}} Team"
+    },
+    {
+        "id": "inquiry_received",
+        "name": "Customer Support Acknowledgement",
+        "subject": "We Have Received Your Request – #{{order_id}}",
+        "html": "<p>Dear {{customer_name}},</p><p>Thank you for contacting {{business_name}}.</p><p>Your request has been successfully registered with our support team.</p><p><strong>Ticket ID:</strong> {{order_id}}</p><p>Our team will review your request and respond according to our support timelines.</p><p>You can track your request here: <a href=\"{{support_url}}\">Support Center</a></p><p>Regards,<br>Customer Support Team</p>",
+        "text": "Dear {{customer_name}},\n\nThank you for contacting {{business_name}}.\n\nYour request has been successfully registered with our support team.\n\nTicket ID: {{order_id}}\n\nOur team will review your request and respond according to our support timelines.\n\nYou can track your request here: {{support_url}}\n\nRegards,\nCustomer Support Team"
+    },
+    {
+        "id": "payment_success",
+        "name": "Payment Receipt",
+        "subject": "Payment Received – Transaction #{{payment_reference}}",
+        "html": "<p>Dear {{customer_name}},</p><p>We have successfully received your payment.</p><p><strong>Payment Details:</strong><br>Transaction ID: {{payment_reference}}<br>Amount Paid: {{order_total}}<br>Order ID: {{order_id}}</p><p>Please retain this email for your records.</p><p>Thank you for your business.</p><p>Regards,<br>Billing Team<br>{{business_name}}</p>",
+        "text": "Dear {{customer_name}},\n\nWe have successfully received your payment.\n\nPayment Details:\nTransaction ID: {{payment_reference}}\nAmount Paid: {{order_total}}\nOrder ID: {{order_id}}\n\nPlease retain this email for your records.\n\nThank you for your business.\n\nRegards,\nBilling Team\n{{business_name}}"
+    },
+    {
+        "id": "payment_failed",
+        "name": "Payment Failed",
+        "subject": "Action Required: Payment Failed for Order #{{order_id}}",
+        "html": "<p>Dear {{customer_name}},</p><p>We were unable to process the latest payment for your order.</p><p><strong>Payment Details:</strong><br>Amount: {{order_total}}<br>Order ID: {{order_id}}<br>Status: Failed</p><p>Please review your payment method and try again.</p><p>For assistance, contact <a href=\"{{support_url}}\">Support</a>.</p><p>Regards,<br>Billing Team</p>",
+        "text": "Dear {{customer_name}},\n\nWe were unable to process the latest payment for your order.\n\nPayment Details:\nAmount: {{order_total}}\nOrder ID: {{order_id}}\nStatus: Failed\n\nPlease review your payment method and try again.\n\nFor assistance, contact {{support_url}}\n\nRegards,\nBilling Team"
+    },
+    {
+        "id": "loyalty_7th",
+        "name": "Loyalty Reward",
+        "subject": "A special reward for you",
+        "html": "<p>Dear {{customer_name}},</p><p>We appreciate your continued trust in {{business_name}}.</p><p>As a thank-you for your loyalty, you have received a special reward!</p><p><a href=\"{{site_url}}\">Redeem your reward here</a></p><p>We look forward to serving you again.</p><p>Warm regards,<br>Loyalty Program Team</p>",
+        "text": "Dear {{customer_name}},\n\nWe appreciate your continued trust in {{business_name}}.\n\nAs a thank-you for your loyalty, you have received a special reward!\n\nRedeem your reward here: {{site_url}}\n\nWe look forward to serving you again.\n\nWarm regards,\nLoyalty Program Team"
+    },
+    {
+        "id": "delivery",
+        "name": "Service Completed",
+        "subject": "Your service has been completed",
+        "html": "<p>Dear {{customer_name}},</p><p>Your order #{{order_id}} has been marked as successfully completed.</p><p>We hope everything meets your expectations!</p><p>Thank you for choosing {{business_name}}.</p><p>Best regards,<br>Customer Support Team</p>",
+        "text": "Dear {{customer_name}},\n\nYour order #{{order_id}} has been marked as successfully completed.\n\nWe hope everything meets your expectations!\n\nThank you for choosing {{business_name}}.\n\nBest regards,\nCustomer Support Team"
+    },
+    {
+        "id": "event_7day",
+        "name": "Upcoming Event Reminder",
+        "subject": "Reminder: Upcoming Date for Order #{{order_id}}",
+        "html": "<p>Dear {{customer_name}},</p><p>This is a reminder that your scheduled date is approaching on {{event_date}}.</p><p>Please let us know if you need any adjustments.</p><p>Best regards,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nThis is a reminder that your scheduled date is approaching on {{event_date}}.\n\nPlease let us know if you need any adjustments.\n\nBest regards,\n{{business_name}} Team"
+    },
+    {
+        "id": "event_1day",
+        "name": "Event Tomorrow",
+        "subject": "Your event is tomorrow!",
+        "html": "<p>Dear {{customer_name}},</p><p>Your scheduled date is tomorrow, {{event_date}}.</p><p>We look forward to seeing you!</p><p>Best regards,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nYour scheduled date is tomorrow, {{event_date}}.\n\nWe look forward to seeing you!\n\nBest regards,\n{{business_name}} Team"
+    },
+    {
+        "id": "review_request",
+        "name": "Feedback Request",
+        "subject": "How Was Your Experience with {{business_name}}?",
+        "html": "<p>Dear {{customer_name}},</p><p>We would appreciate your feedback about your recent experience with our team.</p><p>Your comments help us understand what is working well and where we can improve.</p><p><a href=\"{{review_url}}\">Share Your Feedback</a></p><p>Thank you for your time.</p><p>Best regards,<br>Customer Experience Team</p>",
+        "text": "Dear {{customer_name}},\n\nWe would appreciate your feedback about your recent experience with our team.\n\nYour comments help us understand what is working well and where we can improve.\n\nShare Your Feedback: {{review_url}}\n\nThank you for your time.\n\nBest regards,\nCustomer Experience Team"
+    },
+    {
+        "id": "review_reminder",
+        "name": "Feedback Reminder",
+        "subject": "We'd love your feedback",
+        "html": "<p>Dear {{customer_name}},</p><p>Just a gentle reminder to share your experience with us.</p><p><a href=\"{{review_url}}\">Leave Feedback</a></p><p>Thank you!</p><p>Best regards,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nJust a gentle reminder to share your experience with us.\n\nLeave Feedback: {{review_url}}\n\nThank you!\n\nBest regards,\n{{business_name}} Team"
+    },
+    {
+        "id": "support_alert",
+        "name": "Internal - Support Alert",
+        "subject": "[{{business_name}}] Support Issue – {{order_id}}",
+        "html": "<p>Hello Team,</p><p>A customer support issue requires review.</p><p>Customer Name: {{customer_name}}<br>Order Reference: {{order_id}}<br>Details: <a href=\"{{receipt_url}}\">View</a></p><p>Please prioritize this case.</p><p>{{business_name}} Support Automation</p>",
+        "text": "Hello Team,\n\nA customer support issue requires review.\n\nCustomer Name: {{customer_name}}\nOrder Reference: {{order_id}}\nDetails: {{receipt_url}}\n\nPlease prioritize this case.\n\n{{business_name}} Support Automation"
+    },
+    {
+        "id": "reengage",
+        "name": "Re-engagement",
+        "subject": "We miss you at {{business_name}}!",
+        "html": "<p>Dear {{customer_name}},</p><p>It has been a while since we last saw you. We have made many improvements and would love to welcome you back.</p><p><a href=\"{{site_url}}\">See what's new</a></p><p>Best regards,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nIt has been a while since we last saw you. We have made many improvements and would love to welcome you back.\n\nSee what's new: {{site_url}}\n\nBest regards,\n{{business_name}} Team"
+    },
+    {
+        "id": "birthday",
+        "name": "Birthday Greeting",
+        "subject": "Happy Birthday from {{business_name}}!",
+        "html": "<p>Dear {{customer_name}},</p><p>Wishing you a very Happy Birthday!</p><p>From all of us at {{business_name}}, we hope your day is filled with joy and celebration.</p><p>Best wishes,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nWishing you a very Happy Birthday!\n\nFrom all of us at {{business_name}}, we hope your day is filled with joy and celebration.\n\nBest wishes,\n{{business_name}} Team"
+    },
+    {
+        "id": "delivery_delay_internal",
+        "name": "Internal - Delay Alert",
+        "subject": "[{{business_name}}] Delivery Delay – {{order_id}}",
+        "html": "<p>Hello Team,</p><p>Order #{{order_id}} is past its scheduled date.</p><p>Customer: {{customer_name}}<br>Details: <a href=\"{{receipt_url}}\">View</a></p><p>Please review immediately.</p><p>{{business_name}} Operations</p>",
+        "text": "Hello Team,\n\nOrder #{{order_id}} is past its scheduled date.\n\nCustomer: {{customer_name}}\nDetails: {{receipt_url}}\n\nPlease review immediately.\n\n{{business_name}} Operations"
+    },
+    {
+        "id": "thank_you",
+        "name": "Thank You",
+        "subject": "Thank you from {{business_name}}",
+        "html": "<p>Dear {{customer_name}},</p><p>Thank you for choosing {{business_name}}. We sincerely appreciate your business.</p><p>We look forward to serving you again.</p><p>Warm regards,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nThank you for choosing {{business_name}}. We sincerely appreciate your business.\n\nWe look forward to serving you again.\n\nWarm regards,\n{{business_name}} Team"
+    },
+    {
+        "id": "order_received",
+        "name": "Order Confirmation",
+        "subject": "Request Confirmed – #{{order_id}}",
+        "html": "<p>Dear {{customer_name}},</p><p>Thank you for your request. It has been successfully confirmed.</p><p><strong>Reference ID:</strong> {{order_id}}<br><strong>Amount:</strong> {{order_total}}</p><p>We will keep you updated on the progress.</p><p>Thank you for choosing {{business_name}}.</p><p>Best regards,<br>Team {{business_name}}</p>",
+        "text": "Dear {{customer_name}},\n\nThank you for your request. It has been successfully confirmed.\n\nReference ID: {{order_id}}\nAmount: {{order_total}}\n\nWe will keep you updated on the progress.\n\nThank you for choosing {{business_name}}.\n\nBest regards,\nTeam {{business_name}}"
+    },
+    {
+        "id": "review_thanks",
+        "name": "Review Thank You",
+        "subject": "Thank you for your feedback",
+        "html": "<p>Dear {{customer_name}},</p><p>Thank you for taking the time to share your feedback with {{business_name}}.</p><p>We sincerely appreciate your support.</p><p>Warm regards,<br>{{business_name}} Team</p>",
+        "text": "Dear {{customer_name}},\n\nThank you for taking the time to share your feedback with {{business_name}}.\n\nWe sincerely appreciate your support.\n\nWarm regards,\n{{business_name}} Team"
+    }
+]

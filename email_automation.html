@@ -1,0 +1,3806 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1120">
+  <title>Email Automation Center</title>
+  <meta name="author" content="AmaraChintha Akhil">
+  <meta name="developer" content="AmaraChintha Akhil">
+  <meta name="designer" content="AmaraChintha Akhil">
+  <meta name="copyright" content="AmaraChintha Akhil">
+  <!-- ================================================== -->
+  <!-- Developed by AmaraChintha Akhil -->
+  <!-- This application is fully open source. -->
+  <!-- ================================================== -->
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
+  <script>
+    window.SUNDHARI_CONFIG = window.SUNDHARI_CONFIG || {};
+    (function () {
+      try {
+        // Default to dark theme unless explicitly set to 'light'
+        if (localStorage.getItem('sundhari_theme_v1') !== 'light') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          var m = document.querySelector('meta[name="theme-color"]');
+          if (m) m.setAttribute('content', '#0b1120');
+        } else {
+          var m = document.querySelector('meta[name="theme-color"]');
+          if (m) m.setAttribute('content', '#f8fafc');
+        }
+        if (sessionStorage.getItem('sundhari_auth_ok') === '1') {
+          document.documentElement.setAttribute('data-authed', '1');
+        }
+      } catch (e) { }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --paper: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #e2e8f0;
+      --purple: #4f46e5;
+      --purple2: #6366f1;
+      --soft: #eef2ff;
+      --green: #059669;
+      --greenbg: #ecfdf5;
+      --amber: #d97706;
+      --amberbg: #fffbeb;
+      --red: #dc2626;
+      --redbg: #fef2f2;
+      --shadow: 0 1px 2px rgba(20, 18, 45, .04), 0 2px 6px rgba(20, 18, 45, .03);
+      --radius: 14px;
+      --brand: #4f46e5;
+      --brand2: #6366f1;
+      --brand-soft: #eef2ff;
+      --brand-soft-border: #c7d2fe;
+      --border-strong: #cbd5e1;
+      --shadow-1: 0 1px 2px rgba(20, 18, 45, .04), 0 2px 6px rgba(20, 18, 45, .03);
+      --shadow-2: 0 2px 4px rgba(20, 18, 45, .06), 0 8px 20px rgba(20, 18, 45, .08);
+      --shadow-3: 0 4px 8px rgba(20, 18, 45, .08), 0 16px 40px rgba(20, 18, 45, .12);
+      --ease-standard: cubic-bezier(.4, 0, .2, 1);
+      --ease-enter: cubic-bezier(0, 0, .2, 1);
+      --ease-exit: cubic-bezier(.4, 0, 1, 1);
+      --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+      --ease-smooth3d: cubic-bezier(.16, 1, .3, 1)
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font: 14px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink)
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    button:disabled {
+      opacity: .48;
+      cursor: not-allowed
+    }
+
+    a {
+      color: var(--purple);
+      text-decoration: none
+    }
+
+    a:hover {
+      text-decoration: underline
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr)
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid var(--line);
+      padding: 22px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 0 9px
+    }
+
+    .brand-mark {
+      height: 42px;
+      width: 42px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #a28af5, #6844d4);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 19px;
+      font-weight: 900;
+      box-shadow: 0 7px 18px #7047dc38
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 16px;
+      letter-spacing: -.02em
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      margin-top: 2px
+    }
+
+    .nav-label {
+      color: #9a9fb0;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      padding: 0 12px 7px
+    }
+
+    .nav {
+      display: grid;
+      gap: 5px
+    }
+
+    .nav button {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: #646b80;
+      text-align: left;
+      border-radius: 11px;
+      padding: 11px 12px;
+      font-size: 13px;
+      font-weight: 650
+    }
+
+    .nav button:hover {
+      background: #f8f6ff;
+      color: var(--purple)
+    }
+
+    .nav button.active {
+      background: var(--soft);
+      color: var(--purple)
+    }
+
+    .nav-ico {
+      width: 19px;
+      text-align: center;
+      font-size: 16px
+    }
+
+    .side-bottom {
+      margin-top: auto
+    }
+
+    .connection-mini {
+      border: 1px solid var(--line);
+      background: #fbfbfe;
+      border-radius: 13px;
+      padding: 12px
+    }
+
+    .connection-mini .mini-title {
+      font-size: 12px;
+      font-weight: 800
+    }
+
+    .connection-mini p {
+      margin: 5px 0 10px;
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    .mini-status {
+      font-size: 11px;
+      color: var(--amber);
+      font-weight: 750;
+      display: flex;
+      align-items: center;
+      gap: 7px
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #d49a2b;
+      display: inline-block
+    }
+
+    .dot.on {
+      background: var(--green)
+    }
+
+    .main {
+      min-width: 0;
+      padding: 28px clamp(18px, 3vw, 42px) 42px
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 27px
+    }
+
+    .crumb {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 31px);
+      letter-spacing: -.045em;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #1a1830 0%, #4f46e5 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    html[data-theme="dark"] .topbar h1 {
+      background: linear-gradient(135deg, #f1f5f9 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap
+    }
+
+    .status-chip {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 99px;
+      padding: 8px 12px;
+      color: #636b80;
+      font-size: 11px;
+      font-weight: 750
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      background: var(--purple);
+      color: #fff;
+      font-weight: 750;
+      font-size: 12px;
+      border-radius: 10px;
+      padding: 10px 14px;
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: .15s
+    }
+
+    .btn:hover {
+      background: var(--purple2)
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: #50566a;
+      border-color: var(--line)
+    }
+
+    .btn.secondary:hover {
+      background: #f7f6fb
+    }
+
+    .btn.danger {
+      background: var(--redbg);
+      color: var(--red);
+      border-color: #ffdbd9
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--purple);
+      border-color: #e6defd
+    }
+
+    .btn.small {
+      min-height: 30px;
+      padding: 6px 9px;
+      font-size: 11px
+    }
+
+    .view {
+      display: none
+    }
+
+    .view.active {
+      display: block
+    }
+
+    .page-intro {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 0 0 18px
+    }
+
+    .page-intro h2 {
+      margin: 0 0 4px;
+      font-size: 18px;
+      letter-spacing: -.025em
+    }
+
+    .page-intro p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      max-width: 770px
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px
+    }
+
+    .metrics {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 17px
+    }
+
+    .metric,
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow)
+    }
+
+    .metric {
+      padding: 17px 18px
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px
+    }
+
+    .metric-icon {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      background: #f2edff;
+      border-radius: 10px;
+      color: var(--purple);
+      font-size: 15px
+    }
+
+    .metric-value {
+      margin-top: 13px;
+      font-size: 28px;
+      font-weight: 850;
+      letter-spacing: -.04em;
+      font-variant-numeric: tabular-nums
+    }
+
+    .metric-note {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 2px
+    }
+
+    .columns {
+      grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
+      align-items: start
+    }
+
+    .card {
+      padding: 19px;
+      min-width: 0
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px
+    }
+
+    .card-head h3 {
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: -.015em
+    }
+
+    .card-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 11px
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 8px;
+      border-radius: 99px;
+      font-size: 10px;
+      font-weight: 850;
+      white-space: nowrap
+    }
+
+    .pill.good {
+      color: var(--green);
+      background: var(--greenbg)
+    }
+
+    .pill.warn {
+      color: var(--amber);
+      background: var(--amberbg)
+    }
+
+    .pill.bad {
+      color: var(--red);
+      background: var(--redbg)
+    }
+
+    .pill.neutral {
+      color: #6b5ba0;
+      background: #f1edff
+    }
+
+    .notice {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 13px 14px;
+      border-radius: 12px;
+      background: var(--amberbg);
+      border: 1px solid #f4e2b0;
+      color: #785713;
+      font-size: 12px;
+      margin-bottom: 16px
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 2px
+    }
+
+    .notice p {
+      margin: 0
+    }
+
+    .notice.blue {
+      background: #f2f4ff;
+      border-color: #e4e8ff;
+      color: #505e9d
+    }
+
+    .notice.red {
+      background: var(--redbg);
+      border-color: #ffd9d6;
+      color: #993239
+    }
+
+    .list {
+      display: grid;
+      gap: 0
+    }
+
+    .list-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 13px 0;
+      border-bottom: 1px solid #eff0f5
+    }
+
+    .list-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0
+    }
+
+    .list-row:first-child {
+      padding-top: 0
+    }
+
+    .list-icon {
+      height: 34px;
+      width: 34px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: #f3f0ff;
+      color: var(--purple);
+      flex: 0 0 34px
+    }
+
+    .list-main {
+      flex: 1;
+      min-width: 0
+    }
+
+    .list-main strong {
+      display: block;
+      font-size: 12px
+    }
+
+    .list-main p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 11px
+    }
+
+    .list-right {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+      font-size: 12px
+    }
+
+    .table th {
+      text-align: left;
+      color: #777e91;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      background: #fafaff;
+      padding: 11px 12px;
+      white-space: nowrap
+    }
+
+    .table td {
+      border-top: 1px solid #eff0f5;
+      padding: 12px;
+      vertical-align: top
+    }
+
+    .table td strong {
+      font-size: 12px
+    }
+
+    .table .muted {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    .empty {
+      padding: 25px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .flow-list {
+      display: grid;
+      gap: 11px
+    }
+
+    .flow-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 15px;
+      background: #fff;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: start
+    }
+
+    .flow-top {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap
+    }
+
+    .flow-top strong {
+      font-size: 13px
+    }
+
+    .flow-card p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      max-width: 760px
+    }
+
+    .flow-meta {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    .tag {
+      font-size: 10px;
+      background: #f6f6fa;
+      color: #656c7f;
+      border: 1px solid #eceef4;
+      border-radius: 6px;
+      padding: 4px 7px
+    }
+
+    .switch {
+      appearance: none;
+      width: 36px;
+      height: 21px;
+      border-radius: 99px;
+      background: #d9dce6;
+      position: relative;
+      transition: .15s;
+      flex: 0 0 auto;
+      margin: 2px 0 0
+    }
+
+    .switch:checked {
+      background: var(--purple)
+    }
+
+    .switch:before {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #fff;
+      left: 3px;
+      top: 3px;
+      box-shadow: 0 1px 3px #0002;
+      transition: .15s
+    }
+
+    .switch:checked:before {
+      left: 18px
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 14px
+    }
+
+    .field label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #4c5367
+    }
+
+    .field input,
+    .field textarea,
+    .field select,
+    .input {
+      width: 100%;
+      border: 1px solid #dfe2eb;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 11px;
+      min-width: 0;
+      outline: none;
+      font-size: 12px
+    }
+
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.55
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: #aa96f2;
+      box-shadow: 0 0 0 3px #7047dc15
+    }
+
+    .field .help {
+      font-size: 10px;
+      color: var(--muted);
+      margin: 0
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .three {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    .toolbar .field {
+      margin: 0;
+      min-width: 170px;
+      flex: 1
+    }
+
+    .drop {
+      border: 1px dashed #c9cde0;
+      border-radius: 12px;
+      background: #fbfaff;
+      padding: 18px;
+      text-align: center
+    }
+
+    .drop p {
+      color: var(--muted);
+      font-size: 11px;
+      margin: 7px 0 12px
+    }
+
+    .drop input {
+      font-size: 11px;
+      max-width: 100%
+    }
+
+    .template-layout {
+      grid-template-columns: minmax(230px, .65fr) minmax(0, 1.35fr);
+      align-items: start
+    }
+
+    .template-picks {
+      display: grid;
+      gap: 7px
+    }
+
+    .template-pick {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #555d71;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700
+    }
+
+    .template-pick.active {
+      border-color: #cfc2ff;
+      background: #f5f1ff;
+      color: var(--purple)
+    }
+
+    .preview-frame {
+      width: 100%;
+      height: 390px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff
+    }
+
+    .preview-toggle {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap
+    }
+
+    .preview-toggle button {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 6px 9px;
+      color: #5c6376;
+      font-size: 10px
+    }
+
+    .preview-toggle button.active {
+      background: var(--soft);
+      color: var(--purple);
+      border-color: #d9ceff
+    }
+
+    .checkline {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      color: #61687c;
+      font-size: 11px;
+      margin: 12px 0
+    }
+
+    .checkline input {
+      margin-top: 3px;
+      accent-color: var(--purple)
+    }
+
+    .console {
+      font: 11px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: #465067;
+      background: #f8f9fc;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      max-height: 190px;
+      overflow: auto
+    }
+
+    .toast {
+      position: fixed;
+      right: 24px;
+      bottom: 22px;
+      z-index: 50;
+      max-width: min(480px, calc(100vw - 30px));
+      padding: 12px 15px;
+      border-radius: 12px;
+      background: #24273a;
+      color: #fff;
+      font-size: 12px;
+      box-shadow: 0 12px 30px #15132626;
+      display: none
+    }
+
+    .toast.show {
+      display: block
+    }
+
+    .footer-note {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 16px
+    }
+
+    .badge-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 19px;
+      height: 19px;
+      padding: 0 5px;
+      background: #f0edfb;
+      border-radius: 99px;
+      color: var(--purple);
+      font-size: 10px;
+      font-weight: 800
+    }
+
+    .hide {
+      display: none !important
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #0b1120;
+      --paper: #111827;
+      --ink: #f1f5f9;
+      --muted: #cbd5e1;
+      --line: #1e293b;
+      --purple: #818cf8;
+      --purple2: #a5b4fc;
+      --soft: #1e1b4b;
+      --green: #34d399;
+      --greenbg: #052e2b;
+      --amber: #fbbf24;
+      --amberbg: #422006;
+      --red: #f87171;
+      --redbg: #450a0a;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 2px 6px rgba(0, 0, 0, .2);
+      --brand: #818cf8;
+      --brand2: #a5b4fc;
+      --brand-soft: #1e1b4b;
+      --brand-soft-border: #4338ca;
+      --border-strong: #334155;
+      --shadow-1: 0 1px 2px rgba(0, 0, 0, .3), 0 2px 6px rgba(0, 0, 0, .2);
+      --shadow-2: 0 2px 4px rgba(0, 0, 0, .3), 0 8px 20px rgba(0, 0, 0, .4);
+      --shadow-3: 0 4px 8px rgba(0, 0, 0, .3), 0 16px 40px rgba(0, 0, 0, .5)
+    }
+
+    .auth-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      padding: 20px
+    }
+
+    html[data-authed="1"] .auth-overlay {
+      display: none !important
+    }
+
+    .auth-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px 26px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: var(--shadow);
+      text-align: center
+    }
+
+    .auth-mark {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #a28af5, #6844d4);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 900;
+      margin: 0 auto 14px
+    }
+
+    .auth-box h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      letter-spacing: -.02em
+    }
+
+    .auth-box p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6
+    }
+
+    .auth-box input {
+      width: 100%;
+      border: 1px solid #dfe2eb;
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 13px;
+      margin-bottom: 12px;
+      background: #fff;
+      color: var(--ink);
+      outline: none
+    }
+
+    .auth-box input:focus {
+      border-color: #aa96f2;
+      box-shadow: 0 0 0 3px #7047dc15
+    }
+
+    .auth-box .btn {
+      width: 100%
+    }
+
+    .auth-status {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--red);
+      min-height: 16px
+    }
+
+    html[data-theme="dark"] .sidebar {
+      background: #141727
+    }
+
+    html[data-theme="dark"] .nav button {
+      color: #a0a6b8
+    }
+
+    html[data-theme="dark"] .nav button:hover {
+      background: #22263a;
+      color: var(--purple)
+    }
+
+    html[data-theme="dark"] .nav-label {
+      color: #6c728a
+    }
+
+    html[data-theme="dark"] .connection-mini {
+      background: #1e2232
+    }
+
+    html[data-theme="dark"] .status-chip {
+      background: var(--paper);
+      border-color: var(--line);
+      color: #a0a6b8
+    }
+
+    html[data-theme="dark"] .btn.secondary {
+      background: #22263a;
+      color: #c8cce0;
+      border-color: var(--line)
+    }
+
+    html[data-theme="dark"] .btn.secondary:hover {
+      background: #2a2f45
+    }
+
+    html[data-theme="dark"] .btn.danger {
+      border-color: #5a2a2e
+    }
+
+    html[data-theme="dark"] .metric-icon {
+      background: #2a2448;
+      color: var(--purple)
+    }
+
+    html[data-theme="dark"] .table th {
+      background: #141727;
+      color: #8a90a5
+    }
+
+    html[data-theme="dark"] .table td {
+      border-top-color: var(--line)
+    }
+
+    html[data-theme="dark"] .list-row {
+      border-bottom-color: #252a3c
+    }
+
+    html[data-theme="dark"] .list-icon {
+      background: #2a2448;
+      color: var(--purple)
+    }
+
+    html[data-theme="dark"] .flow-card {
+      background: #1a1d2b;
+      border-color: var(--line)
+    }
+
+    html[data-theme="dark"] .tag {
+      background: #22263a;
+      color: #a0a6b8;
+      border-color: var(--line)
+    }
+
+    html[data-theme="dark"] .switch {
+      background: #3a3f55
+    }
+
+    html[data-theme="dark"] .field label {
+      color: #b8bdd0
+    }
+
+    html[data-theme="dark"] .field input,
+    html[data-theme="dark"] .field textarea,
+    html[data-theme="dark"] .field select,
+    html[data-theme="dark"] .input {
+      background: #141727;
+      border-color: var(--line);
+      color: var(--ink)
+    }
+
+    html[data-theme="dark"] .drop {
+      background: #141727;
+      border-color: #3a3f55
+    }
+
+    html[data-theme="dark"] .template-pick {
+      background: #1a1d2b;
+      border-color: var(--line);
+      color: #b8bdd0
+    }
+
+    html[data-theme="dark"] .template-pick.active {
+      background: #2a2448;
+      border-color: #4a3c7a;
+      color: var(--purple)
+    }
+
+    html[data-theme="dark"] .preview-toggle button {
+      background: #1a1d2b;
+      color: #b8bdd0;
+      border-color: var(--line)
+    }
+
+    html[data-theme="dark"] .preview-toggle button.active {
+      background: var(--soft);
+      color: var(--purple);
+      border-color: #4a3c7a
+    }
+
+    html[data-theme="dark"] .preview-frame {
+      border-color: var(--line)
+    }
+
+    html[data-theme="dark"] .checkline {
+      color: #a0a6b8
+    }
+
+    html[data-theme="dark"] .console {
+      background: #131620;
+      border-color: var(--line);
+      color: #a0b0d0
+    }
+
+    html[data-theme="dark"] .pill.neutral {
+      color: #b09af8;
+      background: #2a2448
+    }
+
+    html[data-theme="dark"] .notice {
+      border-color: #4a3a10;
+      color: #e0c878
+    }
+
+    html[data-theme="dark"] .notice.blue {
+      background: #1a1d33;
+      border-color: #2e3a6a;
+      color: #a0b0e0
+    }
+
+    html[data-theme="dark"] .notice.red {
+      border-color: #5a2a2e;
+      color: #f0a0a5
+    }
+
+    html[data-theme="dark"] .badge-count {
+      background: #2a2448;
+      color: var(--purple)
+    }
+
+    html[data-theme="dark"] .bulk-account {
+      background: #1e2232
+    }
+
+    html[data-theme="dark"] .bulk-log {
+      background: #141727
+    }
+
+    html[data-theme="dark"] .bulk-logrow {
+      border-bottom-color: #252a3c
+    }
+
+    html[data-theme="dark"] .bulk-logrow .addr {
+      color: #a0a6b8
+    }
+
+    html[data-theme="dark"] .bulk-progress {
+      background: #2a2f45
+    }
+
+    html[data-theme="dark"] .auth-box input {
+      background: #141727;
+      border-color: var(--line)
+    }
+
+    .bulk-account {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      background: #fbfbfe;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 12px
+    }
+
+    .bulk-account .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #b9bec9;
+      flex: 0 0 9px
+    }
+
+    .bulk-account.on .dot {
+      background: var(--green)
+    }
+
+    .bulk-account strong {
+      display: block;
+      font-size: 12px
+    }
+
+    .bulk-account span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      overflow-wrap: anywhere
+    }
+
+    .bulk-progress {
+      height: 8px;
+      border-radius: 999px;
+      background: #ebeaf3;
+      overflow: hidden;
+      margin: 10px 0 6px
+    }
+
+    .bulk-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #a28af5, #5331bb);
+      transition: width .2s
+    }
+
+    .bulk-log {
+      max-height: 280px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fcfcfe
+    }
+
+    .bulk-logrow {
+      padding: 9px 11px;
+      border-bottom: 1px solid #eef0f4;
+      font-size: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start
+    }
+
+    .bulk-logrow:last-child {
+      border-bottom: 0
+    }
+
+    .bulk-logrow .addr {
+      overflow-wrap: anywhere;
+      color: #4e5868
+    }
+
+    .bulk-status {
+      font-size: 11px;
+      margin-top: 10px;
+      overflow-wrap: anywhere;
+      color: var(--muted)
+    }
+
+    .bulk-status.good {
+      color: var(--green)
+    }
+
+    .bulk-status.warn {
+      color: var(--amber)
+    }
+
+    .bulk-status.bad {
+      color: var(--red)
+    }
+
+    .number-preview {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #f7faf8;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      max-height: 120px;
+      overflow: auto;
+      color: var(--ink);
+    }
+
+    html[data-theme="dark"] .number-preview {
+      background: #141727;
+    }
+
+    @media(max-width:1050px) {
+      .app {
+        grid-template-columns: 210px minmax(0, 1fr)
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+      }
+
+      .columns {
+        grid-template-columns: 1fr
+      }
+
+      .template-layout {
+        grid-template-columns: 1fr
+      }
+
+      .template-picks {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+      }
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+    }
+
+    @media(max-width:720px) {
+      .app {
+        display: block;
+        overflow-x: hidden;
+      }
+
+      #mobileMenuBtn {
+        display: inline-flex !important;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        z-index: 50;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        border-right: 1px solid var(--line);
+        border-bottom: 0;
+        padding: 22px 15px;
+        gap: 24px;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .brand {
+        padding: 0 9px
+      }
+
+      .nav-label,
+      .side-bottom {
+        display: block
+      }
+
+      .nav {
+        display: grid;
+        overflow: visible;
+        gap: 5px;
+        padding-bottom: 0
+      }
+
+      .nav button {
+        width: 100%;
+        white-space: normal;
+        padding: 11px 12px
+      }
+
+      .main {
+        padding: 21px 13px 35px
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 20px
+      }
+
+      .top-actions {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .page-intro {
+        align-items: flex-start;
+        flex-direction: column
+      }
+
+      .metrics {
+        gap: 9px
+      }
+
+      .metric {
+        padding: 13px
+      }
+
+      .metric-value {
+        font-size: 23px
+      }
+
+      .card {
+        padding: 15px
+      }
+
+      .two,
+      .three {
+        grid-template-columns: 1fr
+      }
+
+      .template-picks {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .flow-card {
+        grid-template-columns: minmax(0, 1fr) auto
+      }
+    }
+
+    /* ============================================
+       COLOR & MOTION SYSTEM — polish layer
+       ============================================ */
+
+    /* --- Primary button: gradient + press depth --- */
+    .btn {
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 2px rgba(79, 70, 229, .2);
+      transition: transform .12s ease-out, box-shadow .15s ease-out, background .15s ease-out;
+      position: relative
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 4px 14px rgba(99, 102, 241, .3);
+      transform: translateY(-1px)
+    }
+
+    .btn:active {
+      transform: translateY(1px) scale(.98);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, .15), 0 1px 2px rgba(79, 70, 229, .15)
+    }
+
+    .btn.secondary {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      box-shadow: 0 1px 2px rgba(20, 18, 45, .04)
+    }
+
+    .btn.secondary:hover {
+      background: var(--paper);
+      border-color: var(--brand-soft-border);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(20, 18, 45, .06)
+    }
+
+    .btn.secondary:active {
+      transform: translateY(0) scale(.99);
+      box-shadow: 0 1px 2px rgba(20, 18, 45, .04)
+    }
+
+    .btn.danger {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #fff;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 2px rgba(220, 38, 38, .2)
+    }
+
+    .btn.danger:hover {
+      background: linear-gradient(135deg, #f87171 0%, #ef4444 100%)
+    }
+
+    /* --- Brand mark gradient --- */
+    .brand-mark {
+      background: linear-gradient(135deg, #818cf8 0%, #6366f1 50%, #4f46e5 100%);
+      box-shadow: 0 4px 14px rgba(99, 102, 241, .35), inset 0 1px 0 rgba(255, 255, 255, .2)
+    }
+
+    /* --- Sidebar active gradient rail --- */
+    .nav button.active {
+      background: var(--soft);
+      color: var(--purple);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .03);
+      position: relative
+    }
+
+    .nav button.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      border-radius: 2px;
+      background: linear-gradient(to bottom, #818cf8 0%, #4f46e5 100%)
+    }
+
+    /* --- Metric/card hover lift + 3D tilt support --- */
+    .metric,
+    .card {
+      transition: transform 80ms linear, box-shadow .25s ease, border-color .25s ease;
+      will-change: transform
+    }
+
+    .metric:hover {
+      box-shadow: var(--shadow-2);
+      border-color: var(--brand-soft-border)
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-2)
+    }
+
+    /* --- Metric icon ambient glow --- */
+    .metric {
+      position: relative;
+      overflow: hidden
+    }
+
+    .metric::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(99, 102, 241, .06), transparent 65%);
+      opacity: 0;
+      transition: opacity .3s ease
+    }
+
+    .metric:hover::after {
+      opacity: 1
+    }
+
+    /* --- Toggle switch 3D --- */
+    .switch {
+      background: #cbd5e1;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, .15), inset 0 -1px 0 rgba(255, 255, 255, .5);
+      transition: background .2s var(--ease-standard)
+    }
+
+    .switch:checked {
+      background: linear-gradient(135deg, #818cf8 0%, #4f46e5 100%);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, .15), 0 0 8px rgba(99, 102, 241, .4)
+    }
+
+    .switch:before {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .9);
+      transition: left .2s var(--ease-spring)
+    }
+
+    /* --- Status pill dots --- */
+    .pill.good::before,
+    .pill.warn::before,
+    .pill.bad::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      display: inline-block
+    }
+
+    .pill.good::before {
+      background: var(--green);
+      box-shadow: 0 0 6px rgba(5, 150, 105, .5)
+    }
+
+    .pill.warn::before {
+      background: var(--amber);
+      box-shadow: 0 0 6px rgba(217, 119, 6, .4)
+    }
+
+    .pill.bad::before {
+      background: var(--red);
+      box-shadow: 0 0 6px rgba(220, 38, 38, .5)
+    }
+
+    /* --- Connection dot pulse --- */
+    .dot.on {
+      animation: dotPulse 2s ease-in-out infinite
+    }
+
+    @keyframes dotPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(5, 150, 105, .5)
+      }
+
+      50% {
+        box-shadow: 0 0 0 4px rgba(5, 150, 105, 0)
+      }
+    }
+
+    /* --- View fade-in --- */
+    .view.active {
+      animation: viewIn 220ms ease-out
+    }
+
+    @keyframes viewIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* --- Toast: slide + colored left border --- */
+    .toast {
+      border-left: 3px solid transparent;
+      background: #1e293b
+    }
+
+    .toast.show {
+      display: block;
+      animation: toastIn 250ms var(--ease-smooth3d)
+    }
+
+    .toast.info {
+      border-left-color: #818cf8
+    }
+
+    .toast.success {
+      border-left-color: #34d399
+    }
+
+    .toast.warn {
+      border-left-color: #fbbf24
+    }
+
+    .toast.error {
+      border-left-color: #f87171
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* --- Progress bar shimmer --- */
+    .bulk-bar {
+      background: linear-gradient(90deg, #818cf8 0%, #4f46e5 100%);
+      position: relative;
+      overflow: hidden
+    }
+
+    .bulk-bar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, .4) 50%, transparent 100%);
+      animation: shimmer 1.5s linear infinite
+    }
+
+    @keyframes shimmer {
+      from {
+        transform: translateX(-100%)
+      }
+
+      to {
+        transform: translateX(100%)
+      }
+    }
+
+    /* --- Login button shake on error --- */
+    .btn.shake {
+      animation: shake 350ms cubic-bezier(.36, .07, .19, .97)
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0)
+      }
+
+      20%,
+      60% {
+        transform: translateX(-3px)
+      }
+
+      40%,
+      80% {
+        transform: translateX(3px)
+      }
+    }
+
+    /* --- Ambient background mesh --- */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(400px 400px at 10% 10%, rgba(99, 102, 241, .04), transparent 70%),
+        radial-gradient(600px 600px at 90% 90%, rgba(168, 85, 247, .03), transparent 70%)
+    }
+
+    html[data-theme="dark"] body::before {
+      background:
+        radial-gradient(400px 400px at 10% 10%, rgba(99, 102, 241, .08), transparent 70%),
+        radial-gradient(600px 600px at 90% 90%, rgba(139, 92, 246, .05), transparent 70%)
+    }
+
+    .app {
+      position: relative;
+      z-index: 1
+    }
+
+    /* --- Modal shadow --- */
+    .auth-box {
+      box-shadow: var(--shadow-3)
+    }
+
+    /* --- Dark theme hardcoded-color overrides --- */
+    html[data-theme="dark"] .sidebar {
+      background: #0d1224
+    }
+
+    html[data-theme="dark"] .nav button {
+      color: #cbd5e1
+    }
+
+    html[data-theme="dark"] .nav button:hover {
+      background: #1e293b;
+      color: #a5b4fc
+    }
+
+    html[data-theme="dark"] .nav-label {
+      color: #64748b
+    }
+
+    html[data-theme="dark"] .connection-mini {
+      background: #1e293b
+    }
+
+    html[data-theme="dark"] .table th {
+      background: #0d1224;
+      color: #94a3b8
+    }
+
+    html[data-theme="dark"] .list-icon {
+      background: #1e1b4b;
+      color: #a5b4fc
+    }
+
+    html[data-theme="dark"] .tag {
+      background: #1e293b;
+      color: #cbd5e1
+    }
+
+    html[data-theme="dark"] .pill.neutral {
+      color: #a5b4fc;
+      background: #1e1b4b
+    }
+
+    html[data-theme="dark"] .console {
+      background: #0d1224;
+      color: #a5b4fc
+    }
+
+    html[data-theme="dark"] .bulk-log {
+      background: #0d1224
+    }
+
+    html[data-theme="dark"] .bulk-logrow .addr {
+      color: #cbd5e1
+    }
+
+    html[data-theme="dark"] .number-preview {
+      background: #0d1224
+    }
+
+    html[data-theme="dark"] .btn.secondary {
+      background: #1e293b;
+      color: #cbd5e1
+    }
+
+    html[data-theme="dark"] .btn.secondary:hover {
+      background: #334155
+    }
+
+    html[data-theme="dark"] .btn.danger {
+      background: #450a0a;
+      color: #f87171;
+      border-color: #7f1d1d
+    }
+
+    html[data-theme="dark"] .status-chip {
+      background: #1e293b
+    }
+
+    html[data-theme="dark"] .flow-card {
+      background: var(--paper)
+    }
+
+    html[data-theme="dark"] .template-pick {
+      background: var(--paper)
+    }
+
+    html[data-theme="dark"] .template-pick.active {
+      background: #1e1b4b;
+      border-color: #4f46e5
+    }
+
+    html[data-theme="dark"] .drop {
+      background: #0d1224;
+      border-color: #334155
+    }
+
+    html[data-theme="dark"] .preview-toggle button {
+      background: var(--paper)
+    }
+
+    html[data-theme="dark"] .preview-toggle button.active {
+      background: #1e1b4b
+    }
+
+    html[data-theme="dark"] .checkline {
+      color: #cbd5e1
+    }
+
+    html[data-theme="dark"] .field label {
+      color: #cbd5e1
+    }
+
+    html[data-theme="dark"] .metric-icon {
+      background: #1e1b4b;
+      color: #a5b4fc
+    }
+
+    html[data-theme="dark"] .badge-count {
+      background: #1e1b4b;
+      color: #a5b4fc
+    }
+
+    html[data-theme="dark"] .bulk-account {
+      background: #1e293b
+    }
+
+    html[data-theme="dark"] .bulk-progress {
+      background: #334155
+    }
+
+    html[data-theme="dark"] .auth-box input {
+      background: #0d1224
+    }
+
+    html[data-theme="dark"] .switch {
+      background: #334155
+    }
+
+    html[data-theme="dark"] .notice.blue {
+      background: #1e1b4b;
+      border-color: #4338ca;
+      color: #a5b4fc
+    }
+
+    /* --- Reduced motion support (mandatory) --- */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important
+      }
+    }
+
+    /* --- Button loading spinner --- */
+    .btn.loading::after {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-left: 6px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: btnSpin 0.8s linear infinite;
+      vertical-align: -1px;
+    }
+
+    @keyframes btnSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="auth-overlay" id="authOverlay"
+    style="position:fixed;inset:0;background:var(--bg);z-index:999;display:grid;place-items:center;">
+    <div class="card" style="max-width:400px;width:100%;text-align:center;">
+      <h2 style="margin-top:0;" id="loginHeading">Admin Login</h2>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:15px;">Enter your secure server password to access the
+        dashboard.</p>
+      <form id="loginForm">
+        <input type="password" id="loginPassword" class="input" style="margin-bottom:10px;" placeholder="Password">
+        <button type="submit" class="btn" id="loginBtn" style="width:100%;">Unlock Dashboard</button>
+      </form>
+      <div id="loginStatus" style="color:var(--red);font-size:12px;margin-top:10px;min-height:16px;"></div>
+      <div id="setupPanel"
+        style="display:none;text-align:left;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);">
+        <p style="font-size:12px;color:var(--muted);margin:0 0 10px;">First-run setup: choose your business type. This
+          seeds the correct email templates.</p>
+        <label style="font-size:11px;font-weight:800;color:var(--muted);">Business type</label>
+        <select id="setupBusinessType" class="input" style="margin:6px 0 10px;">
+          <option value="general">General business</option>
+          <option value="ecommerce">E-commerce &amp; Retail</option>
+          <option value="saas">SaaS &amp; Technology</option>
+          <option value="finance">Financial Services &amp; Banking</option>
+          <option value="media">Media, Publishing &amp; Entertainment</option>
+          <option value="healthcare">Healthcare &amp; Wellness</option>
+        </select>
+        <label style="font-size:11px;font-weight:800;color:var(--muted);">Business name</label>
+        <input id="setupBusinessName" class="input" type="text" placeholder="Your business name"
+          style="margin:6px 0 10px;">
+        <button type="button" id="setupSaveBtn" class="btn" style="width:100%;">Save &amp; continue</button>
+      </div>
+      <button type="button" id="resetConnBtn" class="btn secondary small" style="margin-top:12px;">Reset connection
+        settings</button>
+    </div>
+  </div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" id="brandMark">E</div>
+        <div><strong id="brandName">Email Automation</strong><small>Self-hosted</small></div>
+      </div>
+      <div>
+        <div class="nav-label">Workspace</div>
+        <nav class="nav" aria-label="Workspace">
+          <button class="active" data-view="dashboard"><span class="nav-ico">◫</span>Overview</button>
+          <button data-view="automations"><span class="nav-ico">⟳</span>Workflows <span class="badge-count"
+              id="workflowCount">15</span></button>
+          <button data-view="contacts"><span class="nav-ico">♙</span>Customers</button>
+          <button data-view="logs"><span class="nav-ico">≡</span>Activity logs</button>
+        </nav>
+      </div>
+      <div>
+        <div class="nav-label">Send</div>
+        <nav class="nav" aria-label="Send">
+          <button data-view="bulk"><span class="nav-ico">➤</span>Bulk mail</button>
+          <button data-view="whatsapp"><span class="nav-ico">💬</span>WhatsApp</button>
+        </nav>
+      </div>
+      <div>
+        <div class="nav-label">Configure</div>
+        <nav class="nav" aria-label="Configure">
+          <button data-view="templates"><span class="nav-ico">✉</span>Templates</button>
+          <button data-view="settings"><span class="nav-ico">⚙</span>Settings</button>
+        </nav>
+      </div>
+      <div class="side-bottom">
+        <div class="connection-mini">
+          <div class="mini-title">Automation connection</div>
+          <p>Live sending requires your admin backend and a mail provider to be connected.</p>
+          <div class="mini-status" id="miniStatus"><span class="dot"></span><span>Not connected</span></div>
+        </div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="crumb">Dashboard / <span id="crumbCurrent">Overview</span></div>
+          <h1 id="pageTitle">Email Automation Center</h1>
+        </div>
+        <div class="top-actions">
+          <button id="refreshDataBtn" class="btn secondary" title="Refresh Data" aria-label="Refresh data">🔄
+            Refresh</button>
+          <button id="mobileMenuBtn" class="btn secondary" style="display: none; font-size: 18px; padding: 0 12px;"
+            aria-label="Open navigation menu">☰</button>
+          <span class="status-chip" id="connectionChip"><span class="dot"></span><span>Backend not
+              connected</span></span>
+          <button class="btn secondary" id="themeToggle" title="Toggle light / dark theme"
+            aria-label="Toggle light or dark theme">🌙 Dark</button>
+          <button class="btn secondary" id="logoutBtn" title="Log out" aria-label="Log out">↪ Log out</button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="notice hide" id="setupNotice" style="padding:8px 12px;font-size:11px"><span>⚠</span>
+          <div><strong>Not connected</strong>
+            <p>Open Settings to enter the API base URL and click Test connection.</p>
+          </div>
+        </div>
+        <div class="grid metrics">
+          <article class="metric">
+            <div class="metric-label"><span>Customers loaded</span><span class="metric-icon">♙</span></div>
+            <div class="metric-value" id="metricCustomers">0</div>
+            <div class="metric-note">From admin API or imported export</div>
+          </article>
+          <article class="metric">
+            <div class="metric-label"><span>Orders loaded</span><span class="metric-icon">▣</span></div>
+            <div class="metric-value" id="metricOrders">0</div>
+            <div class="metric-note">Order and delivery status</div>
+          </article>
+          <article class="metric">
+            <div class="metric-label"><span>Confirmed paid orders</span><span class="metric-icon">₹</span></div>
+            <div class="metric-value" id="metricPayments">0</div>
+            <div class="metric-note">payment_status IN (paid / confirmed / succeeded)</div>
+          </article>
+          <article class="metric">
+            <div class="metric-label"><span>Emails recorded</span><span class="metric-icon">✉</span></div>
+            <div class="metric-value" id="metricEmails">0</div>
+            <div class="metric-note">Sent / failed / skipped in current data</div>
+          </article>
+        </div>
+        <div class="grid columns">
+          <section class="card">
+            <div class="card-head">
+              <div>
+                <h3>Lifecycle automation</h3>
+                <p>Designed for sundhari customer milestones and order events.</p>
+              </div><button class="btn secondary small" data-goto="automations">Manage workflows →</button>
+            </div>
+            <div class="list" id="overviewWorkflows"></div>
+          </section>
+          <div class="grid">
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h3>Connection status</h3>
+                  <p>Admin database, payment records and email delivery.</p>
+                </div><span class="pill warn" id="connectionStatePill">Not connected</span>
+              </div>
+              <div class="list">
+                <div class="list-row">
+                  <div class="list-icon">▤</div>
+                  <div class="list-main"><strong>Admin database</strong>
+                    <p id="dbConnectionText">Not connected. Configure the backend API in Settings.</p>
+                  </div>
+                </div>
+                <div class="list-row">
+                  <div class="list-icon">₹</div>
+                  <div class="list-main"><strong>Payment details</strong>
+                    <p id="paymentConnectionText">Waiting for server-provided order/payment records.</p>
+                  </div>
+                </div>
+                <div class="list-row">
+                  <div class="list-icon">✉</div>
+                  <div class="list-main"><strong>Email sending</strong>
+                    <p id="emailConnectionText">No test send attempted. A server-side provider is required for reliable
+                      automation.</p>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:15px"><button class="btn" data-goto="settings">Configure connections</button>
+              </div>
+            </section>
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h3>Recent activity</h3>
+                  <p>Latest sync and event results.</p>
+                </div><button class="btn secondary small" data-goto="logs">View logs →</button>
+              </div>
+              <div class="list" id="recentActivity">
+                <div class="empty">No activity yet. Sync the admin API or import an export.</div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <p class="footer-note">Security: this dashboard does not request or store your Gmail password, payment-card
+          data, or email-provider secret keys. Keep secrets on the server.</p>
+      </section>
+
+      <section class="view" id="view-automations">
+        <div class="page-intro">
+          <div>
+            <h2>Automation workflows</h2>
+            <p>Enable or disable each policy. Changes are saved locally until a connected backend accepts them. Timers
+              must be executed by the server scheduler, not by this browser tab.</p>
+          </div>
+          <div class="toolbar">
+            <button class="btn secondary" id="enableAllFlowsBtn">Enable All</button>
+            <button class="btn secondary" id="disableAllFlowsBtn">Disable All</button>
+            <button class="btn secondary" id="resetFlowsBtn">Reset defaults</button>
+            <button class="btn" id="saveFlowsBtn">Save to backend</button>
+          </div>
+        </div>
+        <div class="notice blue"><span>ⓘ</span>
+          <div><strong>Guardrails are part of every workflow</strong>
+            <p>Transactional messages are separate from marketing. Marketing checks consent and suppression;
+              order/review sequences stop when the order is resolved, a review is submitted, or customer support needs
+              to intervene.</p>
+          </div>
+        </div>
+        <div class="flow-list" id="workflowList"></div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-head">
+            <div>
+              <h3>Process due queue now</h3>
+              <p>Runs the server queue only when the backend route is available.</p>
+            </div><span class="pill warn" id="queuePill">Not available</span>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin:0 0 12px">A production scheduler should run automatically
+            every few minutes. This button is for a controlled manual queue run while setting up and testing.</p><button
+            id="runQueueBtn" class="btn">Run due queue now</button>
+          <div class="footer-note" id="queueResult">No queue run requested.</div>
+        </div>
+      </section>
+
+      <section class="view" id="view-contacts">
+        <div class="page-intro">
+          <div>
+            <h2>Customers, orders & payments</h2>
+            <p>Sync the connected admin API, or import CSV/JSON exports for a local preview. Imported data is held in
+              this page session and is not automatically sent anywhere.</p>
+          </div>
+        </div>
+        <div class="notice"><span>⚠</span>
+          <div><strong>Do not import payment-card or banking credentials</strong>
+            <p>Only use customer contact details, order IDs, payment status/amount, transaction reference and receipt
+              URLs needed for email content.</p>
+          </div>
+        </div>
+        <div class="grid three metrics" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+          <article class="metric">
+            <div class="metric-label">Customers</div>
+            <div class="metric-value" id="contactCount">0</div>
+            <div class="metric-note">Unique email addresses</div>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Orders</div>
+            <div class="metric-value" id="orderCount">0</div>
+            <div class="metric-note">Status and event date</div>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Payments</div>
+            <div class="metric-value" id="paymentCount">0</div>
+            <div class="metric-note">Confirmed from admin source</div>
+          </article>
+        </div>
+        <div class="grid">
+          <section class="card">
+            <div class="card-head">
+              <div>
+                <h3>Customer list</h3><span class="pill neutral" id="contactSourcePill">No data</span>
+              </div><button class="btn secondary small" id="exportContactsBtn">Export CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Tier</th>
+                    <th>Orders</th>
+                  </tr>
+                </thead>
+                <tbody id="contactsTable">
+                  <tr>
+                    <td colspan="4" class="empty">Sync or import customer data to display it here.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+        <section class="card" style="margin-top:16px">
+          <div class="card-head">
+            <div>
+              <h3>Order & payment snapshot</h3>
+              <p>Payment messages must use only confirmed status from the admin backend.</p>
+            </div><button class="btn secondary small" id="exportOrdersBtn">Export orders CSV</button>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Customer</th>
+                  <th>Order status</th>
+                  <th>Payment</th>
+                  <th>Amount</th>
+                  <th>Event date</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTable">
+                <tr>
+                  <td colspan="6" class="empty">No order data loaded.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section class="view" id="view-bulk">
+        <div class="page-intro">
+          <div>
+            <h2>Bulk mail sender</h2>
+            <p>Send personalized individual emails through your server's authenticated Gmail account. Recipients and
+              results are tracked in the dashboard. Use only lists whose recipients have agreed to receive your emails.
+            </p>
+          </div>
+        </div>
+        <div class="notice"><span>⚠</span>
+          <div><strong>Personal Gmail sending limits apply</strong>
+            <p>Test with a small list first. Delivery to the inbox is not guaranteed, and Google may limit sending.
+              The server sends via the Gmail account configured in your environment (GOOGLE_REFRESH_TOKEN /
+              GMAIL_SENDER).</p>
+          </div>
+        </div>
+        <div class="grid columns">
+          <div class="grid">
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h3>1 · Server Mailer</h3>
+                  <p>Emails are sent securely via your server's authenticated Google API.</p>
+                </div><span class="pill good" id="bulkAuthPill">Ready</span>
+              </div>
+              <div class="bulk-account on" id="bulkAccountBox"><span class="dot"></span>
+                <div><strong id="bulkAccountTitle">Server Connected</strong><span id="bulkAccountEmail">Gmail account
+                    configured via server env vars.</span></div>
+              </div>
+            </section>
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h3>2 · Load recipient email addresses</h3>
+                  <p>CSV columns supported: email, name, orderCount, orderId.</p>
+                </div><span class="pill neutral" id="bulkFileMeta">No file loaded</span>
+              </div>
+              <div class="drop"><input id="bulkFileInput" type="file" accept=".csv,.txt,text/csv,text/plain">
+                <p>Choose a CSV or TXT file, or paste addresses below. Duplicates are removed.</p>
+              </div>
+              <div class="field" style="margin-top:13px"><label for="bulkEmails">Or paste addresses
+                  (optional)</label><textarea id="bulkEmails" style="min-height:86px"
+                  placeholder="hello@example.com&#10;another@example.com"></textarea></div>
+              <div class="toolbar"><button id="bulkParseBtn" class="btn secondary">Check recipients</button><button
+                  id="bulkClearBtn" class="btn secondary">Clear list</button></div>
+              <div id="bulkRecipientStatus" class="bulk-status" role="status" aria-live="polite">Load a file or paste
+                addresses to begin.</div>
+            </section>
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h3>3 · Write your email</h3>
+                  <p>Each recipient receives a separate message addressed only to them.</p>
+                </div>
+              </div>
+              <div class="field"><label for="bulkCampaignType">Email type</label><select id="bulkCampaignType">
+                  <option value="custom">Custom / General</option>
+                  <option value="order-confirm">Order confirmation (thank you)</option>
+                  <option value="review-thank">Review thank you</option>
+                  <option value="loyalty">Loyalty reminder (orders left)</option>
+                  <option value="promo">Promotional offer (6 complete, 7 free)</option>
+                </select>
+                <p class="help">Selecting a type fills subject and message with a template. Variables like {{name}},
+                  {{ordersLeft}}, {{orderCount}}, {{orderId}} are replaced per recipient.</p>
+              </div>
+              <div class="field"><label for="bulkSubject">Subject</label><input id="bulkSubject" type="text"
+                  maxlength="250" placeholder="e.g. Discover sundhari digital invitations"></div>
+              <div class="field"><label for="bulkBody">Message content</label><textarea id="bulkBody"
+                  style="min-height:170px"
+                  placeholder="Write your email here. Plain text is supported, including multiple paragraphs."></textarea>
+                <p class="help">Plain-text emails are sent. Use {{name}}, {{orderId}}, {{orderCount}}, {{ordersLeft}} in
+                  the message to personalize each email.</p>
+              </div>
+            </section>
+          </div>
+          <div class="grid">
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h3>4 · Review and send</h3>
+                  <p>Results below are reported by the Gmail API only.</p>
+                </div>
+              </div>
+              <div class="grid three">
+                <article class="metric" style="padding:12px 14px;box-shadow:none">
+                  <div class="metric-label">Recipients</div>
+                  <div class="metric-value" id="bulkMRecipients" style="font-size:22px">0</div>
+                </article>
+                <article class="metric" style="padding:12px 14px;box-shadow:none">
+                  <div class="metric-label">Accepted / Queued</div>
+                  <div class="metric-value" id="bulkMSent" style="font-size:22px">0</div>
+                </article>
+                <article class="metric" style="padding:12px 14px;box-shadow:none">
+                  <div class="metric-label">Failed</div>
+                  <div class="metric-value" id="bulkMFailed" style="font-size:22px">0</div>
+                </article>
+              </div>
+              <div class="bulk-progress">
+                <div id="bulkProgressBar" class="bulk-bar"></div>
+              </div>
+              <div id="bulkProgressText" class="footer-note" style="margin:6px 0 12px">Waiting to start</div>
+              <label class="checkline"><input type="checkbox" id="bulkPermission"><span>I confirm these recipients have
+                  agreed to receive this email, the message is lawful and relevant, and I have checked the recipient
+                  list and message.</span></label>
+              <div class="toolbar"><button id="bulkSendBtn" class="btn" disabled>Send all emails</button><button
+                  id="bulkStopBtn" class="btn danger" disabled
+                  title="Cancels pending sends; up to 10 in-flight jobs may still complete">Stop after current
+                  batch</button></div>
+              <p class="help" style="margin-top:8px">Max 100 recipients per batch. Larger lists are automatically split
+                into multiple batches of 100 and queued sequentially.</p>
+              <div id="bulkSendStatus" class="bulk-status" role="status" aria-live="polite">Load recipients and complete
+                the fields above.</div>
+            </section>
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h3>5 · Send log</h3>
+                  <p>Latest at the top. Export for records.</p>
+                </div><button id="bulkExportBtn" class="btn secondary small" disabled>Export CSV</button>
+              </div>
+              <div id="bulkLog" class="bulk-log">
+                <div class="bulk-logrow"><span class="pill neutral">READY</span><span>Results will appear here.</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-whatsapp">
+        <div class="page-intro">
+          <div>
+            <h2>WhatsApp Sender</h2>
+            <p>Import a TXT or CSV contact list, enter one message, and open a pre-filled WhatsApp chat for each
+              recipient.</p>
+          </div>
+        </div>
+        <div class="notice">
+          <span>⚠</span>
+          <div>
+            <strong>Manual sending required</strong>
+            <p>This tool does not auto-send messages. In each WhatsApp chat, review the recipient and message, then
+              press <strong>Send</strong> yourself. Use only for recipients who have consented. WhatsApp warns that
+              automated or bulk messaging may result in account restrictions.</p>
+          </div>
+        </div>
+
+        <div class="grid columns">
+          <div class="grid">
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h3>1. Add your contact list</h3>
+                  <p>Upload .TXT or .CSV file, or paste numbers below.</p>
+                </div>
+              </div>
+              <div class="field">
+                <label for="waFile">Upload .TXT or .CSV file</label>
+                <input id="waFile" type="file" accept=".txt,.csv,text/plain,text/csv">
+                <p class="help">For CSV files, use a column headed phone, mobile, number, telephone, or whatsapp. If
+                  there is no matching heading, the first column is used.</p>
+              </div>
+              <div class="field">
+                <label for="waCountry">Default country code for local numbers</label>
+                <input id="waCountry" type="text" value="91" inputmode="numeric" placeholder="91">
+                <p class="help">India = 91. Numbers that already include a country code keep it.</p>
+              </div>
+              <div class="field">
+                <label for="waNumbers">Or paste numbers here (one per line)</label>
+                <textarea id="waNumbers" placeholder="9876543210&#10;919876543211" style="min-height: 100px"></textarea>
+              </div>
+              <div class="toolbar">
+                <button id="waLoad" class="btn secondary">Load & check numbers</button>
+                <button id="waClear" class="btn secondary">Clear</button>
+              </div>
+              <div id="waLoadStatus" class="bulk-status" role="status" aria-live="polite"></div>
+            </section>
+
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h3>2. Write the message</h3>
+                  <p>Message will be pre-filled in WhatsApp.</p>
+                </div>
+              </div>
+              <div class="field">
+                <label for="waMessage">Message to send</label>
+                <textarea id="waMessage" placeholder="Type your message here..." style="min-height: 120px"></textarea>
+                <p class="help">Use a message recipients have agreed to receive.</p>
+              </div>
+            </section>
+          </div>
+
+          <div class="grid">
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h3>3. Review and send manually</h3>
+                </div>
+              </div>
+              <div class="grid three metrics">
+                <article class="metric" style="padding:12px 14px;box-shadow:none">
+                  <div class="metric-label">Valid Unique</div>
+                  <div class="metric-value" id="waTotal" style="font-size:22px">0</div>
+                </article>
+                <article class="metric" style="padding:12px 14px;box-shadow:none">
+                  <div class="metric-label">Processed</div>
+                  <div class="metric-value" id="waProgressText" style="font-size:22px">0 / 0</div>
+                </article>
+                <article class="metric" style="padding:12px 14px;box-shadow:none">
+                  <div class="metric-label">Remaining</div>
+                  <div class="metric-value" id="waRemaining" style="font-size:22px">0</div>
+                </article>
+              </div>
+              <div class="bulk-progress">
+                <div id="waBar" class="bulk-bar"></div>
+              </div>
+              <div class="current" id="waCurrent" style="font-size:16px;font-weight:750;margin:12px 0 6px">No recipient
+                loaded</div>
+              <div id="waPreview" class="number-preview">Your number preview will appear here.</div>
+
+              <div class="toolbar" style="margin-top:15px">
+                <button id="waOpen" class="btn" disabled>Open current WhatsApp chat</button>
+                <button id="waNext" class="btn secondary" disabled>Sent — open next chat</button>
+                <button id="waReset" class="btn secondary" disabled>Reset queue</button>
+              </div>
+              <div id="waSendStatus" class="bulk-status" role="status" aria-live="polite"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-templates">
+        <div class="page-intro">
+          <div>
+            <h2>Email templates</h2>
+            <p>Each template includes a subject, accessible HTML content, a plain-text fallback, and merge fields for
+              customer, order and payment data.</p>
+          </div>
+          <div class="toolbar"><button class="btn secondary" id="restoreTemplatesBtn">Restore defaults</button><button
+              class="btn" id="saveTemplateBtn">Save template</button></div>
+        </div>
+        <div class="grid template-layout">
+          <section class="card">
+            <div class="card-head">
+              <div>
+                <h3>Template library</h3>
+                <p>Select a message to edit.</p>
+              </div><span class="badge-count" id="templateCount">0</span>
+            </div>
+            <div class="template-picks" id="templatePicks"></div>
+            <div class="notice blue" style="margin-top:15px;margin-bottom:0"><span>ⓘ</span>
+              <div><strong>Supported merge fields</strong>
+                <p><code>{{business_name}}</code>, <code>{{customer_name}}</code>, <code>{{order_id}}</code>,
+                  <code>{{order_total}}</code>,
+                  <code>{{payment_status}}</code>, <code>{{receipt_url}}</code>, <code>{{invitation_url}}</code>,
+                  <code>{{event_date}}</code>, <code>{{review_url}}</code>, <code>{{support_url}}</code>,
+                  <code>{{site_url}}</code>, <code>{{unsubscribe_url}}</code>.
+                </p>
+              </div>
+            </div>
+          </section>
+          <section class="card">
+            <div class="field"><label for="templateName">Template name</label><input id="templateName" type="text"
+                placeholder="Template name"></div>
+            <div class="field"><label for="templateSubject">Email subject</label><input id="templateSubject" type="text"
+                maxlength="250" placeholder="Subject with {{merge_fields}}"></div>
+            <div class="field"><label for="templateHtml">HTML email body</label><textarea id="templateHtml"
+                style="min-height:220px" spellcheck="false"></textarea>
+              <p class="help">Use readable text and links. Do not put passwords or secret tokens in links.</p>
+            </div>
+            <div class="field"><label for="templateText">Plain-text fallback</label><textarea id="templateText"
+                style="min-height:130px"></textarea></div>
+            <div class="card-head" style="margin:18px 0 10px">
+              <h3>Preview</h3>
+              <div class="preview-toggle"><button class="active" data-preview="html">HTML view</button><button
+                  data-preview="text">Plain text</button></div>
+            </div><iframe class="preview-frame" id="templatePreview" title="Sandboxed email preview"
+              sandbox=""></iframe>
+            <pre class="console hide" id="textPreview"></pre>
+            <div class="two" style="margin-top:13px">
+              <div class="field"><label for="testRecipient">Send a test to</label><input id="testRecipient" type="email"
+                  placeholder="your-email@example.com"></div>
+              <div class="field"><label for="testName">Preview customer name</label><input id="testName" type="text"
+                  value="A Customer"></div>
+            </div><label class="checkline"><input type="checkbox" id="confirmTest"><span>I confirm this is my own test
+                inbox or a recipient who has agreed to receive this test. This sends only one test
+                email.</span></label><button class="btn" id="sendTestBtn">Send one test email via backend</button>
+            <div class="footer-note" id="testSendStatus">No test email sent.</div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-logs">
+        <div class="page-intro">
+          <div>
+            <h2>Activity & delivery logs</h2>
+            <p>Track sent, failed, skipped and suppressed messages. A backend should preserve durable logs across
+              sessions.</p>
+          </div>
+          <div class="toolbar"><button class="btn secondary" id="retryAllFailedBtn">Retry all failed</button><button
+              class="btn secondary" id="refreshLogsBtn">Refresh from backend</button><button class="btn"
+              id="exportLogsBtn">Export CSV</button></div>
+        </div>
+        <div class="grid metrics">
+          <article class="metric">
+            <div class="metric-label">Sent / accepted</div>
+            <div class="metric-value" id="logSentCount">0</div>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Failed</div>
+            <div class="metric-value" id="logFailedCount">0</div>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Suppressed / skipped</div>
+            <div class="metric-value" id="logSkippedCount">0</div>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Total log records</div>
+            <div class="metric-value" id="logTotalCount">0</div>
+          </article>
+        </div>
+        <section class="card">
+          <div class="toolbar" style="margin-bottom:14px">
+            <div class="field"><label for="logSearch">Search email, event or detail</label><input id="logSearch"
+                type="text" placeholder="Search logs"></div>
+            <div class="field" style="max-width:190px"><label for="logFilter">Status</label><select id="logFilter">
+                <option value="all">All statuses</option>
+                <option value="sent">Sent</option>
+                <option value="failed">Failed</option>
+                <option value="skipped">Skipped / suppressed</option>
+                <option value="queued">Queued</option>
+              </select></div>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Recipient</th>
+                  <th>Workflow / template</th>
+                  <th>Status</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="logsTable">
+                <tr>
+                  <td colspan="5" class="empty">No logs available. Connect the backend or import a log export.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="page-intro">
+          <div>
+            <h2>Connections & settings</h2>
+            <p>Configure your existing backend. No API routes are guessed as working; test the connection after your
+              server implements the contract below.</p>
+          </div>
+          <div class="toolbar" style="justify-content:flex-end;">
+            <button class="btn secondary" id="testConnBtn">🔌 Test connection</button>
+            <button class="btn secondary" id="testGmailOAuthBtn">🔑 Test Gmail OAuth</button>
+            <button class="btn" id="saveConfigBtn">Save connection settings</button>
+          </div>
+        </div>
+        <div class="notice red"><span>!</span>
+          <div><strong>A static HTML file cannot safely run the entire lifecycle automation alone</strong>
+            <p>It cannot read your private database without an authenticated API, and it stops running when the browser
+              is closed. Persistent delays, payment webhooks, retries, unsubscribe suppression and automatic sends
+              require server-side routes plus a scheduler/queue.</p>
+          </div>
+        </div>
+        <div class="grid">
+          <section class="card">
+            <div class="card-head">
+              <div>
+                <h3>Admin backend connection</h3>
+                <p>Use the API base URL for your current admin app or backend.</p>
+              </div><span class="pill warn" id="settingsConnectionPill">Not connected</span>
+            </div>
+            <div class="field"><label for="apiBase">API base URL</label><input id="apiBase" type="url"
+                placeholder="https://your-domain.example (or same origin)">
+              <p class="help">If your admin panel is on the same domain, leave blank to use the current origin. Serve
+                this file over HTTP(S), not file://.</p>
+            </div>
+            <details style="margin-bottom:14px">
+              <summary style="cursor:pointer;font-size:11px;font-weight:800;color:#4c5367;padding:6px 0">▸ Advanced —
+                override individual API routes</summary>
+              <div class="field"><label for="apiHealth">Health / connection-check route</label><input id="apiHealth"
+                  type="text" value="/api/admin/email-automation/health"></div>
+              <div class="field"><label for="apiOverview">Overview route</label><input id="apiOverview" type="text"
+                  value="/api/admin/email-automation/overview"></div>
+              <div class="field"><label for="apiContacts">Customers route</label><input id="apiContacts" type="text"
+                  value="/api/admin/email-automation/contacts"></div>
+              <div class="field"><label for="apiOrders">Orders route</label><input id="apiOrders" type="text"
+                  value="/api/admin/email-automation/orders"></div>
+              <div class="field"><label for="apiPayments">Payments route</label><input id="apiPayments" type="text"
+                  value="/api/admin/email-automation/payments"></div>
+              <div class="field"><label for="apiLogs">Logs route</label><input id="apiLogs" type="text"
+                  value="/api/admin/email-automation/logs"></div>
+              <div class="field"><label for="apiSettings">Save automation configuration route</label><input
+                  id="apiSettings" type="text" value="/api/admin/email-automation/settings"></div>
+              <div class="field"><label for="apiRun">Process due queue route</label><input id="apiRun" type="text"
+                  value="/api/admin/email-automation/run"></div>
+              <div class="field"><label for="apiTest">Send test email route</label><input id="apiTest" type="text"
+                  value="/api/admin/email-automation/send-test"></div>
+              <div class="field"><label for="apiGmailCheck">Gmail OAuth check route</label><input id="apiGmailCheck"
+                  type="text" value="/api/admin/email-automation/gmail-check"></div>
+            </details>
+            <div class="toolbar"></div>
+            <p class="footer-note" id="connectionMessage">Not tested yet.</p>
+          </section>
+          <section class="card">
+            <div class="card-head">
+              <div>
+                <h3>Connection diagnostics</h3>
+                <p>Last 80 API calls made from this page.</p>
+              </div><button class="btn secondary small" id="clearDiagnosticsBtn">Clear</button>
+            </div>
+            <pre id="diagnostics" class="console">No diagnostics recorded.</pre>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="mobileOverlay" class="mobile-overlay"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    (() => {
+      'use strict';
+      const $ = id => document.getElementById(id);
+      const STORAGE = { config: 'sundhari_config_v1', flows: 'sundhari_flows_v1', templates: 'sundhari_templates_v1' };
+      const defaultConfig = {
+        base: '',
+        health: '/api/admin/email-automation/health',
+        overview: '/api/admin/email-automation/overview',
+        contacts: '/api/admin/email-automation/contacts',
+        orders: '/api/admin/email-automation/orders',
+        payments: '/api/admin/email-automation/payments',
+        logs: '/api/admin/email-automation/logs',
+        templates: '/api/admin/email-automation/templates',
+        settings: '/api/admin/email-automation/settings',
+        run: '/api/admin/email-automation/run',
+        test: '/api/admin/email-automation/send-test',
+        gmailCheck: '/api/admin/email-automation/gmail-check'
+      };
+      const workflows = [
+        { id: 'signup_welcome', name: 'New signup — welcome', category: 'Customer onboarding', event: 'customer.created', desc: 'Send a personalized welcome email immediately after account creation.', steps: 'Immediately', guard: 'Send once per customer; use the transactional/account notice classification your provider and law allow.', enabled: false },
+        { id: 'signup_nurture', name: 'Signup education series', category: 'Marketing', event: 'customer.created', desc: 'Explain Digital, Animated and Web invitations; share examples, customization and RSVP features; invite the customer to explore.', steps: 'Day 1 · Day 3 · Day 5', guard: 'Marketing consent required. Stop when an order is placed, consent is withdrawn, or the contact unsubscribes.', enabled: false },
+        { id: 'inquiry_received', name: 'Inquiry received confirmation', category: 'Inquiry', event: 'inquiry.created', desc: 'Confirm receipt of an inquiry or quotation request and provide the next-step link.', steps: 'Immediately', guard: 'Send one confirmation per inquiry ID; include support contact details.', enabled: false },
+        { id: 'inquiry_sla', name: 'Unanswered inquiry — internal reminder (pending backend)', category: 'Internal alert', event: 'requires inquiries table + responded_at column', desc: 'BACKEND INTEGRATION PENDING — this workflow has no poller or webhook yet. Enabling it currently has no effect.', steps: 'After 24 hours', guard: 'Requires an inquiries table with created_at and responded_at. Backend implementation pending.', enabled: false },
+        { id: 'inquiry_followup', name: 'Open inquiry follow-ups (pending backend)', category: 'Sales follow-up', event: 'requires inquiries table', desc: 'BACKEND INTEGRATION PENDING — this workflow has no poller or webhook yet. Enabling it currently has no effect.', steps: 'Day 2 · Day 5 final', guard: 'Requires an inquiries table. Backend implementation pending.', enabled: false },
+        { id: 'payment_success', name: 'Payment confirmation / receipt', category: 'Transactional', event: 'payment.succeeded', desc: 'Send amount, currency, order reference, confirmed payment status and receipt link from the verified admin record.', steps: 'Immediately after verified success', guard: 'Only a verified successful payment event; idempotent by payment ID. Never include card or banking secrets.', enabled: false },
+        { id: 'payment_failed', name: 'Payment failed notice', category: 'Transactional', event: 'payment.failed', desc: 'Explain that payment could not be confirmed and link to the secure checkout or support page.', steps: 'Immediately after confirmed failure', guard: 'Only send a failure message after verified failure; suppress if payment later succeeds before dispatch.', enabled: false },
+        { id: 'loyalty_7th', name: '7th completed order is free', category: 'Loyalty', event: 'order.completed_count_reaches_6', desc: 'After six eligible completed orders, tell the customer that their next (seventh) invitation qualifies for the free reward and explain redemption terms.', steps: 'When completed eligible count reaches 6', guard: 'Count only eligible, non-refunded orders; issue one unique reward record/code; never promise if the order ledger disagrees.', enabled: false },
+        { id: 'delivery', name: 'Invitation delivered — sharing & RSVP help', category: 'Transactional', event: 'order.delivered', desc: 'Send the delivered invitation link, sharing instructions and RSVP-management guidance.', steps: 'Immediately after delivery', guard: 'One delivery notice per order; use the current public invitation URL.', enabled: false },
+        { id: 'event_reminders', name: 'Event date reminders', category: 'Transactional / service', event: 'event_date', desc: 'Send a useful reminder before the event for the products and event dates where reminders are enabled.', steps: '7 days before · 1 day before', guard: 'Require a valid event date and appropriate reminder setting; stop if order is cancelled or event date is changed.', enabled: false },
+        { id: 'review_thanks', name: 'Review submitted — thank you', category: 'Feedback', event: 'review.submitted', desc: 'Send a thank-you after the customer submits a review.', steps: 'Immediately after review', guard: 'Send once per review submission.', enabled: false },
+        { id: 'order_received', name: 'Order received — confirmation', category: 'Transactional', event: 'order.created', desc: 'Confirm receipt of a new order with the reference number and receipt link.', steps: 'Immediately after order placement', guard: 'Send once per order ID.', enabled: true },
+        { id: 'delivery_delay_internal', name: 'Internal — order delay alert', category: 'Internal alert', event: 'order.delayed', desc: 'Alert the support team when an order is overdue.', steps: 'Daily scan', guard: 'Internal only; send once per delayed order.', enabled: true },
+        { id: 'review_request', name: 'Review request and one reminder', category: 'Feedback', event: 'order.delivered', desc: 'Ask for a review two days after delivery; send one reminder five days later only if no review exists.', steps: '2 days after delivery · reminder at day 7', guard: 'Stop on review submission, refund/dispute, support issue, unsubscribe where applicable, or invalid review URL.', enabled: false },
+        { id: 'support_route', name: 'Support issue escalation', category: 'Internal alert', event: 'support_issue.created', desc: 'Create a support alert and stop review or sales follow-ups while the issue is unresolved.', steps: 'Immediately', guard: 'Support issue takes precedence over review/re-engagement campaigns.', enabled: false },
+        { id: 'repeat_reengage', name: 'Repeat customer and re-engagement', category: 'Marketing', event: 'order.completed', desc: 'Send a helpful, relevant post-order follow-up at 30 days; send a gentle win-back message after 60–90 days without another order.', steps: 'Day 30 · Day 60–90', guard: 'Marketing consent required; suppress if a new order exists, customer unsubscribes, or the last order has an open issue.', enabled: false },
+        { id: 'milestone_dates', name: 'Birthday and anniversary greetings', category: 'Marketing / service', event: 'customer_milestone_date', desc: 'Send an appropriate greeting based only on a date the customer explicitly provided and the preferences they selected.', steps: 'On recorded date', guard: 'Require valid date, timezone rules and consent where marketing; no inferred personal dates.', enabled: false }
+      ];
+      ['signup_welcome', 'payment_success', 'payment_failed', 'delivery', 'review_thanks', 'event_reminders', 'inquiry_received', 'review_request', 'loyalty_7th', 'support_route'].forEach(id => { const wf = workflows.find(w => w.id === id); if (wf) wf.enabled = true; });
+      const sampleVars = { customer_name: 'A Customer', first_name: 'A', site_url: location.origin + '/', order_id: 'ORD-1048', order_total: '₹1,499.00', payment_status: 'Paid', currency: 'INR', payment_reference: 'TXN-SAMPLE-1048', receipt_url: location.origin + '/', invitation_url: location.origin + '/', event_date: '15 December 2026', review_url: location.origin + '/', support_url: location.origin + '/', inquiry_url: location.origin + '/', unsubscribe_url: location.origin + '/' };
+      const wrapEmail = (headline, content, ctaText, ctaUrl, footer = 'You are receiving this email because you interacted with your business.') => `<div style="margin:0;background:#f7f7fb;padding:28px 10px;font-family:Arial,Helvetica,sans-serif;color:#25243a"><div style="max-width:620px;margin:0 auto;background:#ffffff;border:1px solid #eceaf4;border-radius:16px;overflow:hidden"><div style="background:#7047dc;padding:22px 26px;color:#fff"><div style="font-weight:700;font-size:19px;letter-spacing:.2px">{{business_name}}</div><div style="font-size:11px;opacity:.9;margin-top:4px">Automated email</div></div><div style="padding:28px 26px"><h1 style="font-size:23px;line-height:1.25;margin:0 0 16px;color:#242238">${headline}</h1><div style="font-size:14px;line-height:1.8;color:#4e5064">${content}</div>${ctaText ? `<p style="margin:24px 0 12px"><a href="${ctaUrl}" style="display:inline-block;padding:12px 18px;border-radius:9px;background:#7047dc;color:#fff;text-decoration:none;font-weight:700;font-size:13px">${ctaText}</a></p>` : ''}<p style="border-top:1px solid #eeeef4;padding-top:17px;margin-top:25px;font-size:11px;line-height:1.6;color:#85879a">${footer}<br><a href="{{unsubscribe_url}}" style="color:#7047dc">Unsubscribe from marketing emails</a></p></div></div></div>`;
+
+      const defaultTemplates = [];
+
+      const state = { config: { ...defaultConfig }, flows: workflows.map(x => ({ ...x })), templates: [], contacts: [], orders: [], payments: [], logs: [], connection: false, source: 'none', currentTemplate: 'welcome', previewMode: 'html', diagnostics: [], busy: false, metricsAnimated: false, overviewCounts: null };
+      function structuredCloneSafe(x) { return JSON.parse(JSON.stringify(x)); }
+      function toast(msg, type) { const node = $('toast'); node.className = 'toast'; void node.offsetWidth; node.textContent = msg; node.className = 'toast show' + (type ? ' ' + type : ''); clearTimeout(toast.timer); toast.timer = setTimeout(() => { node.className = 'toast' + (type ? ' ' + type : ''); }, 3200); }
+      function animateCount(el, target) { if (!el) return; const duration = 600; const start = performance.now(); const to = Number(target) || 0; function tick(now) { const t = Math.min(1, (now - start) / duration); const eased = 1 - Math.pow(1 - t, 3); el.textContent = fmtNum(Math.round(to * eased)); if (t < 1) requestAnimationFrame(tick); } requestAnimationFrame(tick); }
+      function attachCardTilt() { if (window.matchMedia('(hover: none)').matches) return; if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; document.querySelectorAll('.metric').forEach(card => { if (card.dataset.tiltBound) return; card.dataset.tiltBound = '1'; card.addEventListener('mousemove', e => { const r = card.getBoundingClientRect(); const px = (e.clientX - r.left) / r.width - 0.5; const py = (e.clientY - r.top) / r.height - 0.5; card.style.transform = 'perspective(1200px) rotateX(' + (-py * 2).toFixed(2) + 'deg) rotateY(' + (px * 2).toFixed(2) + 'deg) translateY(-2px)'; }); card.addEventListener('mouseleave', () => { card.style.transform = ''; }); }); }
+      function setDiagnostics(msg, kind = 'info') { const entry = '[' + new Date().toLocaleString() + '] ' + kind.toUpperCase() + ': ' + msg; state.diagnostics.unshift(entry); state.diagnostics = state.diagnostics.slice(0, 80); const el = $('diagnostics'); if (el) el.textContent = state.diagnostics.join('\n'); }
+      function readStorage(key, fallback) { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback } catch (_) { return fallback; } }
+      function saveStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (_) { toast('Unable to save browser settings. Storage may be disabled.', 'error'); } }
+      function getConfigFromForm() { return { base: $('apiBase').value.trim().replace(/\/$/, ''), health: $('apiHealth').value.trim(), overview: $('apiOverview').value.trim(), contacts: $('apiContacts').value.trim(), orders: $('apiOrders').value.trim(), payments: $('apiPayments').value.trim(), logs: $('apiLogs').value.trim(), templates: defaultConfig.templates, settings: $('apiSettings').value.trim(), run: $('apiRun').value.trim(), test: $('apiTest').value.trim(), gmailCheck: $('apiGmailCheck').value.trim() }; }
+      function setConfigForm(c) { $('apiBase').value = c.base || ''; $('apiHealth').value = c.health || defaultConfig.health; $('apiOverview').value = c.overview || defaultConfig.overview; $('apiContacts').value = c.contacts || defaultConfig.contacts; $('apiOrders').value = c.orders || defaultConfig.orders; $('apiPayments').value = c.payments || defaultConfig.payments; $('apiLogs').value = c.logs || defaultConfig.logs; $('apiSettings').value = c.settings || defaultConfig.settings; $('apiRun').value = c.run || defaultConfig.run; $('apiTest').value = c.test || defaultConfig.test; $('apiGmailCheck').value = c.gmailCheck || defaultConfig.gmailCheck; }
+      function apiUrl(path) { const cfg = getConfigFromForm(); const base = cfg.base || (location.protocol === 'http:' || location.protocol === 'https:' ? location.origin : ''); if (!base) throw new Error('This page is opened as a file. Run it from your admin site or a local HTTP server, then set API base URL.'); if (!path) throw new Error('API route is blank.'); return new URL(path, base + '/').toString(); }
+      async function apiRequest(path, options = {}) { const url = apiUrl(path); const init = { method: options.method || 'GET', credentials: 'include', headers: { 'Accept': 'application/json', 'X-Requested-With': 'fetch', ...(options.body ? { 'Content-Type': 'application/json' } : {}), ...(options.headers || {}) }, ...(options.body ? { body: JSON.stringify(options.body) } : {}) }; let res; try { res = await fetch(url, init); } catch (e) { setDiagnostics('Request failed for ' + url + ': ' + e.message, 'error'); throw new Error('Network/CORS error. Confirm API URL, server availability and CORS/session settings.'); } const txt = await res.text(); let data = null; try { data = txt ? JSON.parse(txt) : {}; } catch (_) { data = { raw: txt.slice(0, 400) }; } if (!res.ok) { setDiagnostics((options.method || 'GET') + ' ' + url + ' returned ' + res.status + ' ' + (data?.message || data?.error || ''), 'error'); throw new Error('API returned HTTP ' + res.status + (data?.message ? ': ' + data.message : data?.error ? ': ' + data.error : '')); } setDiagnostics((options.method || 'GET') + ' ' + url + ' succeeded', 'ok'); return data; }
+      function unwrapArray(d) { if (Array.isArray(d)) return d; if (d && Array.isArray(d.data)) return d.data; if (d && Array.isArray(d.items)) return d.items; if (d && Array.isArray(d.results)) return d.results; return []; }
+      function normaliseContact(x) { return { ...x, name: x.name || [x.first_name || x.firstName || '', x.last_name || x.lastName || ''].filter(Boolean).join(' ') || x.full_name || x.customer_name || 'Customer', email: String(x.email || x.email_address || x.customer_email || '').trim(), marketing_consent: x.marketing_consent ?? x.marketingConsent ?? x.consent ?? false, completed_orders: Number(x.completed_orders ?? x.completedOrders ?? x.order_count ?? 0) || 0, pending_orders: Number(x.pending_orders ?? x.pendingOrders ?? 0) || 0 }; }
+      function normaliseOrder(x) {
+        const priceRaw = (x.price === null || x.price === undefined) ? '' : x.price;
+        const priceIsQuote = priceRaw === '' || /pending/i.test(String(priceRaw));
+        return {
+          ...x,
+          id: x.id ?? x.order_id ?? '—',
+          customer_name: x.customer_name || x.user_name || x.customerName || x.name || '',
+          email: x.email || x.user_email || x.customer_email || x.email_address || '',
+          status: x.status || 'Pending',
+          product: x.product || '',
+          price: priceRaw,
+          payment_status: priceIsQuote ? 'Pending Quote' : (x.payment_status || x.paymentStatus || 'Pending'),
+          amount: priceIsQuote ? '' : priceRaw,
+          currency: 'INR',
+          event_date: x.event_date || '',
+          occasion: x.occasion || '',
+          order_date: x.order_date || x.created_at || '',
+          delivery_date: x.delivery_date || '',
+          card_type: x.card_type || '',
+          template: x.template || ''
+        };
+      }
+      function normalisePayment(x) { return { ...x, id: x.id ?? x.payment_id ?? '—', order_id: x.order_id || x.orderId || '', status: x.status || x.payment_status || 'unknown', amount: x.amount ?? x.total ?? '', currency: x.currency || 'INR', transaction_id: x.transaction_id || x.reference || x.transaction_reference || '', created_at: x.created_at || x.paid_at || x.createdAt || '', receipt_url: x.receipt_url || x.invoice_url || '' }; }
+      function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+      function fmtNum(n) { return new Intl.NumberFormat('en-IN').format(Number(n) || 0); } function safeDate(v) { if (!v) return '—'; const d = new Date(v); return Number.isNaN(d.getTime()) ? String(v) : d.toLocaleString(); }
+      function getName(o) { return o.name || o.customer_name || o.customerName || o.first_name || o.firstName || 'Customer'; }
+      function statusClass(s) { s = String(s || '').toLowerCase(); if (['sent', 'success', 'succeeded', 'paid', 'delivered', 'completed', 'ok'].includes(s)) return 'good'; if (['failed', 'error', 'bounced', 'complaint'].includes(s)) return 'bad'; if (['suppressed', 'skipped', 'unsubscribed', 'cancelled', 'canceled'].includes(s)) return 'warn'; return 'neutral'; }
+      function setConnection(connected, message) {
+        state.connection = connected; $('connectionChip').innerHTML = '<span class="dot ' + (connected ? 'on' : '') + '"></span><span>' + (connected ? 'Backend connected' : 'Backend not connected') + '</span>'; $('miniStatus').innerHTML = '<span class="dot ' + (connected ? 'on' : '') + '"></span><span>' + (connected ? 'Connected' : 'Not connected') + '</span>'; $('connectionStatePill').textContent = connected ? 'Connected' : 'Not connected'; $('connectionStatePill').className = 'pill ' + (connected ? 'good' : 'warn'); $('settingsConnectionPill').textContent = connected ? 'Connected' : 'Not connected'; $('settingsConnectionPill').className = 'pill ' + (connected ? 'good' : 'warn'); const bulkPill = $('bulkAuthPill'); if (bulkPill) { bulkPill.textContent = connected ? 'Ready' : 'Offline'; bulkPill.className = 'pill ' + (connected ? 'good' : 'bad'); } const bulkBox = $('bulkAccountBox'); if (bulkBox) bulkBox.classList.toggle('on', connected); const bulkTitle = $('bulkAccountTitle'); if (bulkTitle) bulkTitle.textContent = connected ? 'Server Connected' : 'Backend Unreachable'; const bulkEmail = $('bulkAccountEmail'); if (bulkEmail) bulkEmail.textContent = connected ? 'Gmail account configured via server env vars.' : 'Fix the connection in Settings before sending bulk mail.'; $('dbConnectionText').textContent = connected ? 'The backend health route responded successfully.' : 'Not connected. Configure the backend API in Settings.'; $('paymentConnectionText').textContent = connected ? 'Sync admin records to confirm payment data is available.' : 'Waiting for server-provided order/payment records.'; $('emailConnectionText').textContent = connected ? 'Sending must be confirmed through a backend test email.' : 'No test send attempted. Configure a server-side mail provider.'; if (message) $('connectionMessage').textContent = message; $('setupNotice').classList.toggle('hide', connected);
+        const rq = $('runQueueBtn');
+        if (rq) {
+          rq.disabled = !connected;
+          rq.title = connected ? 'Process due email jobs now' : 'Connect to the backend first';
+        }
+        const gmailBtn = $('testGmailOAuthBtn');
+        if (gmailBtn) {
+          gmailBtn.disabled = !connected;
+          gmailBtn.title = connected ? 'Verify Gmail OAuth is working' : 'Connect to the backend first';
+        }
+        const connChip = $('connectionChip');
+        if (connChip) {
+          connChip.style.cursor = 'pointer';
+          connChip.title = connected
+            ? 'Connected — click to open Settings'
+            : 'Disconnected — click to fix';
+          connChip.onclick = () => setCurrentView('settings');
+        }
+        try { bulkUpdateMetrics(); } catch (_) { /* bulk UI not initialised yet */ }
+      }
+      function setCurrentView(name) { document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + name)); document.querySelectorAll('.nav button[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view === name)); const labels = { dashboard: 'Overview', automations: 'Workflows', contacts: 'Customers & orders', templates: 'Email templates', logs: 'Activity logs', bulk: 'Bulk mail sender', whatsapp: 'WhatsApp Sender', settings: 'Connections & settings' }; $('crumbCurrent').textContent = labels[name] || 'Overview'; $('pageTitle').textContent = name === 'dashboard' ? 'Email Automation Center' : labels[name] || 'Email Automation Center'; if (name === 'templates') renderTemplateEditor(); if (name === 'automations') renderWorkflows(); if (name === 'logs') renderLogs(); }
+      document.querySelectorAll('.nav button[data-view]').forEach(b => b.addEventListener('click', () => setCurrentView(b.dataset.view))); document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => setCurrentView(b.dataset.goto)));
+      function renderWorkflows() { const out = $('workflowList'); out.replaceChildren(); for (const f of state.flows) { const card = document.createElement('article'); card.className = 'flow-card'; const left = document.createElement('div'); const top = document.createElement('div'); top.className = 'flow-top'; const title = document.createElement('strong'); title.textContent = f.name; title.setAttribute('title', 'Guardrails: ' + f.guard); const cat = document.createElement('span'); cat.className = 'pill neutral'; cat.textContent = f.category; const active = document.createElement('span'); active.className = 'pill ' + (f.enabled ? 'good' : 'warn'); active.textContent = f.enabled ? 'Enabled' : 'Paused'; top.append(title, cat, active); const desc = document.createElement('p'); desc.textContent = f.desc; const meta = document.createElement('div'); meta.className = 'flow-meta';[f.event, f.steps].forEach(t => { const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = t; meta.append(tag); }); left.append(top, desc, meta); const toggle = document.createElement('input'); toggle.type = 'checkbox'; toggle.className = 'switch'; toggle.checked = !!f.enabled; toggle.setAttribute('aria-label', 'Enable ' + f.name); toggle.addEventListener('change', () => { f.enabled = toggle.checked; renderWorkflows(); renderOverviewWorkflows(); saveStorage(STORAGE.flows, state.flows); toast('Workflow setting saved locally. Click “Save to backend” to publish it.', 'info'); }); card.append(left, toggle); out.append(card); } $('workflowCount').textContent = state.flows.filter(f => f.enabled).length + ' / ' + state.flows.length; }
+      function renderOverviewWorkflows() { const out = $('overviewWorkflows'); out.replaceChildren(); state.flows.slice(0, 6).forEach(f => { const row = document.createElement('div'); row.className = 'list-row'; const ic = document.createElement('div'); ic.className = 'list-icon'; ic.textContent = f.category === 'Transactional' ? '✓' : f.category === 'Loyalty' ? '★' : f.category === 'Internal alert' ? '!' : '✉'; const main = document.createElement('div'); main.className = 'list-main'; const st = document.createElement('strong'); st.textContent = f.name; const p = document.createElement('p'); p.textContent = f.steps + ' · ' + (f.enabled ? 'Enabled' : 'Paused'); main.append(st, p); const pill = document.createElement('span'); pill.className = 'pill ' + (f.enabled ? 'good' : 'warn'); pill.textContent = f.enabled ? 'On' : 'Off'; row.append(ic, main, pill); out.append(row); }); }
+      function updateMetrics() {
+        // Overview counts are authoritative: only fall back to local record
+        // counts when overview itself failed (or has not run yet).
+        if (!state.overviewCounts) {
+          $('metricCustomers').textContent = fmtNum(state.contacts.length);
+          $('metricOrders').textContent = fmtNum(state.orders.length);
+          $('metricPayments').textContent = fmtNum(state.payments.length);
+          $('metricEmails').textContent = fmtNum(state.logs.length);
+        }
+        $('contactCount').textContent = fmtNum(state.contacts.length);
+        $('orderCount').textContent = fmtNum(state.orders.length);
+        $('paymentCount').textContent = fmtNum(state.payments.length);
+        $('logTotalCount').textContent = fmtNum(state.logs.length);
+        $('logSentCount').textContent = fmtNum(state.logs.filter(x => ['sent', 'success', 'accepted', 'delivered'].includes(String(x.status || '').toLowerCase())).length);
+        $('logFailedCount').textContent = fmtNum(state.logs.filter(x => ['failed', 'error', 'bounced'].includes(String(x.status || '').toLowerCase())).length);
+        $('logSkippedCount').textContent = fmtNum(state.logs.filter(x => ['skipped', 'suppressed', 'unsubscribed', 'complaint'].includes(String(x.status || '').toLowerCase())).length);
+        renderContacts(); renderOrders(); renderLogs(); renderRecent();
+        if (!state.metricsAnimated && state.source !== 'none') {
+          state.metricsAnimated = true;
+          $('metricCustomers').textContent = '0';
+          $('metricOrders').textContent = '0';
+          $('metricPayments').textContent = '0';
+          $('metricEmails').textContent = '0';
+          animateCount($('metricCustomers'), state.overviewCounts?.customers ?? state.contacts.length);
+          animateCount($('metricOrders'), state.overviewCounts?.orders ?? state.orders.length);
+          animateCount($('metricPayments'), state.overviewCounts?.payments ?? state.payments.length);
+          animateCount($('metricEmails'), state.overviewCounts?.emails ?? state.logs.length);
+          attachCardTilt();
+        } else if (state.metricsAnimated) {
+          attachCardTilt();
+        }
+      }
+      function renderContacts() {
+        const body = $('contactsTable');
+        body.replaceChildren();
+        $('contactSourcePill').textContent = state.contacts.length ? (state.source === 'api' ? 'Live admin API' : state.source === 'api-partial' ? 'Partial admin API' : 'Imported / sample') : 'No data';
+        if (!state.contacts.length) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = '<td colspan="4" class="empty">Sync or import customer data to display it here.</td>';
+          body.append(tr);
+          return;
+        }
+        state.contacts.slice(0, 300).forEach(c => {
+          const tr = document.createElement('tr');
+          const completed = Number(c.completed_orders ?? c.completedOrders ?? c.order_count ?? 0) || 0;
+          const pending = Number(c.pending_orders ?? c.pendingOrders ?? 0) || 0;
+          const tier = completed >= 6 ? 'good' : completed >= 1 ? 'neutral' : 'warn';
+          const tierLabel = completed >= 6 ? 'Loyalty unlocked' : completed >= 1 ? 'Returning' : 'New';
+          tr.innerHTML = `<td><strong>${esc(getName(c))}</strong><div class="muted">${esc(c.id || '')}</div></td><td>${esc(c.email || '—')}</td><td><span class="pill ${tier}">${tierLabel}</span></td><td>${fmtNum(completed)} completed${pending ? ' · ' + pending + ' pending' : ''}</td>`;
+          body.append(tr);
+        });
+      }
+
+      function renderOrders() {
+        const body = $('ordersTable');
+        body.replaceChildren();
+        if (!state.orders.length) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = '<td colspan="6" class="empty">No order data loaded.</td>';
+          body.append(tr);
+          return;
+        }
+        state.orders.slice(0, 300).forEach(x => {
+          const o = normaliseOrder(x);
+          const tr = document.createElement('tr');
+          const when = o.event_date ? safeDate(o.event_date) : '—';
+          const st = String(o.payment_status || '').toLowerCase();
+          const payLabel = ['confirmed', 'paid', 'succeeded', 'success'].includes(st) ? 'Confirmed'
+            : (st === 'pending quote' ? 'Pending Quote'
+              : ['failed', 'declined', 'rejected'].includes(st) ? 'Failed'
+                : ['refunded', 'cancelled', 'canceled'].includes(st) ? 'Refunded'
+                  : 'Pending');
+          // Reuse `payClass` (which already handles Refunded → 'skipped') instead
+          // of recomputing a shorter inline ternary that silently dropped it.
+          const payClass = statusClass(
+            payLabel === 'Confirmed' ? 'paid'
+              : payLabel === 'Failed' ? 'failed'
+                : payLabel === 'Refunded' ? 'skipped'
+                  : payLabel === 'Pending Quote' ? 'warn'
+                    : 'pending'
+          );
+          tr.innerHTML = `<td><strong>${esc(o.id)}</strong><div class="muted">${esc(o.product)}</div></td><td>${esc(o.customer_name || o.email || '—')}<div class="muted">${esc(o.email || '')}</div></td><td><span class="pill ${statusClass(o.status)}">${esc(o.status)}</span></td><td><span class="pill ${payClass}">${esc(payLabel)}</span></td><td>${esc(o.price === '' || o.price == null ? '—' : o.price)}</td><td>${esc(when)}</td>`;
+          body.append(tr);
+        });
+      }
+      function renderRecent() { const out = $('recentActivity'); out.replaceChildren(); const logs = state.logs.slice(0, 5); if (!logs.length) { out.innerHTML = '<div class="empty">No activity yet. Sync the admin API or import an export.</div>'; return; } logs.forEach(l => { const row = document.createElement('div'); row.className = 'list-row'; const ic = document.createElement('div'); ic.className = 'list-icon'; ic.textContent = String(l.status || '').toLowerCase() === 'failed' ? '!' : '✉'; const main = document.createElement('div'); main.className = 'list-main'; const st = document.createElement('strong'); st.textContent = l.template || l.workflow || l.event || 'Email event'; const p = document.createElement('p'); p.textContent = (l.email || l.recipient || '') + ' · ' + (l.detail || l.message || l.status || ''); main.append(st, p); const side = document.createElement('div'); side.className = 'list-right'; side.textContent = safeDate(l.created_at || l.time || l.timestamp); row.append(ic, main, side); out.append(row); }); }
+      function renderLogs() { const body = $('logsTable'); if (!body) return; body.replaceChildren(); const search = ($('logSearch')?.value || '').toLowerCase(), filter = $('logFilter')?.value || 'all'; const list = state.logs.filter(l => { const status = String(l.status || 'queued').toLowerCase(); const hay = [l.email, l.recipient, l.template, l.workflow, l.event, l.detail, l.message].join(' ').toLowerCase(); const matches = filter === 'all' || (filter === 'sent' && ['sent', 'success', 'accepted', 'delivered'].includes(status)) || (filter === 'failed' && ['failed', 'error', 'bounced'].includes(status)) || (filter === 'skipped' && ['skipped', 'suppressed', 'unsubscribed', 'complaint'].includes(status)) || (filter === 'queued' && ['queued', 'pending', 'scheduled'].includes(status)); return matches && hay.includes(search); }); if (!list.length) { const tr = document.createElement('tr'); tr.innerHTML = '<td colspan="5" class="empty">No matching activity logs.</td>'; body.append(tr); return; } list.slice(0, 500).forEach(l => { const tr = document.createElement('tr'); const rowStatus = String(l.status || 'queued').toLowerCase(); const recipientValue = l.email || l.recipient || ''; const templateValue = l.template || l.workflow || l.event || ''; tr.innerHTML = `<td>${esc(safeDate(l.created_at || l.time || l.timestamp))}</td><td>${esc(recipientValue || '—')}</td><td>${esc(templateValue || '—')}</td><td><span class="pill ${statusClass(l.status)}">${esc(l.status || 'queued')}</span></td>`; const td = document.createElement('td'); td.textContent = l.detail || l.message || l.error || '—'; if (rowStatus === 'failed' && recipientValue && templateValue && !String(templateValue).startsWith('Test:')) { const retryBtn = document.createElement('button'); retryBtn.className = 'btn secondary small'; retryBtn.style.marginLeft = '8px'; retryBtn.textContent = 'Retry'; retryBtn.addEventListener('click', () => retryFailedEmail(recipientValue, templateValue, retryBtn)); td.appendChild(retryBtn); } tr.appendChild(td); body.append(tr); }); }
+      async function retryFailedEmail(recipient, template, btn) {
+        if (!confirm(`Retry failed email to ${recipient}?\n\nThis re-queues the job and the scheduler will attempt delivery again.\n\n⚠ If the original failure was a timeout, the email may have already been delivered — check the error detail before retrying.`)) return;
+        if (btn) { btn.disabled = true; btn.textContent = 'Retrying…'; }
+        try {
+          const cfg = getConfigFromForm();
+          const settingsUrl = cfg.settings || defaultConfig.settings;
+          const retryPath = settingsUrl.replace(/\/settings\/?$/, '/retry-failed');
+          const statsPath = settingsUrl.replace(/\/settings\/?$/, '/queue-stats');
+          if (retryPath === settingsUrl) {
+            throw new Error('Cannot derive /retry-failed from Settings URL "' + settingsUrl + '". Open Settings → Advanced and clear the "Save automation configuration route" override, or leave the default.');
+          }
+          const includeTimeouts = confirm('Include this job if it failed due to a Gmail timeout?\n\n⚠ Google may have already accepted the message — retrying can send a DUPLICATE email.\n\nOK = include timeouts (risky), Cancel = skip timeouts (safe, recommended).');
+          const r = await apiRequest(retryPath, { method: 'POST', body: { recipient, template, includeTimeouts } });
+          const n = Number(r && r.retried) || 0;
+          if (n === 0) {
+            // Give the user concrete numbers so they can decide what to do next.
+            let stats = null;
+            try { stats = await apiRequest(statsPath); } catch (_) { }
+            const failed = (stats && stats.counts && stats.counts.failed) || 0;
+            toast(`No matching failed job in the queue for ${recipient} (${template}). The queue currently has ${failed} failed job(s). This log entry is likely from an earlier attempt that has already been retried or cleared — trigger the underlying event again (e.g. re-save the review, re-send the order) to re-queue it.`, 'warn');
+          } else {
+            toast(`Retry accepted: ${n} job(s) re-queued for ${recipient}.`, 'success');
+          }
+          setTimeout(async () => { try { state.logs = unwrapArray(await apiRequest(cfg.logs)); updateMetrics(); } catch (_) { } }, 15000);
+        } catch (e) {
+          toast('Retry failed: ' + e.message, 'error');
+          if (btn) { btn.disabled = false; btn.textContent = 'Retry'; }
+        }
+      }
+      async function retryAllFailed() {
+        const btn = $('retryAllFailedBtn');
+        if (btn) { btn.disabled = true; btn.textContent = 'Checking queue…'; }
+        try {
+          const cfg = getConfigFromForm();
+          const settingsUrl = cfg.settings || defaultConfig.settings;
+          const retryPath = settingsUrl.replace(/\/settings\/?$/, '/retry-failed');
+          const statsPath = settingsUrl.replace(/\/settings\/?$/, '/queue-stats');
+          if (retryPath === settingsUrl) {
+            throw new Error('Cannot derive /retry-failed from Settings URL "' + settingsUrl + '". Open Settings → Advanced and clear the "Save automation configuration route" override, or leave the default.');
+          }
+          // Pre-flight: how many jobs are actually in failed state right now?
+          let stats = null;
+          try { stats = await apiRequest(statsPath); } catch (_) { /* non-fatal — retry still works without stats */ }
+          const failedCount = (stats && stats.counts && stats.counts.failed) || 0;
+          if (!failedCount) {
+            const pend = (stats && stats.counts && stats.counts.pending) || 0;
+            const sent = (stats && stats.counts && stats.counts.sent) || 0;
+            const skip = (stats && stats.counts && stats.counts.skipped) || 0;
+            toast(`Nothing to retry — no jobs are currently status = "failed". Queue: ${pend} pending, ${sent} sent, ${skip} skipped. The failed entries you see in Activity logs are historical records of past attempts that have already been cleaned up or auto-retried.`, 'info');
+            return;
+          }
+          if (!confirm(`Retry ${failedCount} failed job(s)?\n\nQueue snapshot:\n  failed: ${failedCount}\n  pending: ${stats?.counts?.pending ?? 0}\n  sent: ${stats?.counts?.sent ?? 0}\n  skipped: ${stats?.counts?.skipped ?? 0}\n\nContinue?`)) return;
+
+          // Timeouts are ambiguous — Google may have already accepted those messages.
+          // Default is to SKIP them. Only include on an explicit opt-in.
+          const includeTimeouts = confirm(`Include jobs that failed with a Gmail TIMEOUT?\n\n⚠ Google may have already accepted those messages — retrying can send DUPLICATE emails to customers.\n\nClick OK to INCLUDE timeouts (risky), or Cancel to SKIP them (safe, recommended).`);
+
+          if (btn) { btn.textContent = 'Retrying…'; }
+          const r = await apiRequest(retryPath, { method: 'POST', body: { includeTimeouts } });
+          const n = Number(r && r.retried) || 0;
+          if (n === 0) toast('The retry call completed but 0 jobs were re-queued. This can happen if the queue was cleared between the check and the retry — try again.', 'warn');
+          else toast(`Retry accepted: ${n} job(s) re-queued. Cron drains at ~10/min — watch Activity logs for the results.`, 'success');
+          // Refresh logs at 15s + 45s so the user sees the attempts and can confirm the retry is progressing.
+          setTimeout(async () => { try { state.logs = unwrapArray(await apiRequest(cfg.logs)); updateMetrics(); } catch (_) { } }, 15000);
+          setTimeout(async () => { try { state.logs = unwrapArray(await apiRequest(cfg.logs)); updateMetrics(); } catch (_) { } }, 45000);
+        } catch (e) {
+          toast('Retry all failed: ' + e.message, 'error');
+        } finally {
+          if (btn) { btn.disabled = false; btn.textContent = 'Retry all failed'; }
+        }
+      }
+      async function testConnection() { const cfg = getConfigFromForm(); state.config = cfg; try { const d = await apiRequest(cfg.health); setConnection(true, 'Connected at ' + new Date().toLocaleString() + (d?.version ? ' · ' + d.version : '')); $('queuePill').className = 'pill good'; $('queuePill').textContent = 'Backend connected'; toast('Backend connection succeeded.', 'success'); return true; } catch (e) { setConnection(false, 'Connection failed: ' + e.message); $('queuePill').className = 'pill warn'; $('queuePill').textContent = 'Not available'; toast('Connection failed: ' + e.message, 'error'); return false; } }
+      function forceReauth() {
+        sessionStorage.removeItem('sundhari_auth_ok');
+        document.documentElement.removeAttribute('data-authed');
+        authOverlay.style.display = 'grid';
+        const pwd = $('loginPassword');
+        if (pwd) { pwd.value = ''; pwd.focus(); }
+        const s = $('loginStatus');
+        if (s) s.textContent = 'Session expired. Please log in again.';
+        $('loginForm').style.display = '';
+        $('loginHeading').textContent = 'Admin Login';
+        $('setupPanel').style.display = 'none';
+        $('resetConnBtn').style.display = '';
+      }
+
+      async function syncAdminData() {
+        const cfg = getConfigFromForm();
+        state.config = cfg;
+        let failed = [];
+        try {
+          const results = await Promise.allSettled([
+            apiRequest(cfg.overview), apiRequest(cfg.contacts), apiRequest(cfg.orders), apiRequest(cfg.payments), apiRequest(cfg.logs), apiRequest(cfg.templates)
+          ]);
+          const anyAuthErr = results.some(r =>
+            r.status === 'rejected' &&
+            /401|No token|Invalid or expired/i.test(String(r.reason?.message || r.reason || ''))
+          );
+          if (anyAuthErr) {
+            forceReauth();
+            setConnection(false, 'Session expired. Please log in again.');
+            setDiagnostics('Session expired. Showing login.', 'warn');
+            return;
+          }
+          const [overview, contacts, orders, payments, logs, templates] = results;
+
+          if (contacts.status === 'fulfilled') state.contacts = unwrapArray(contacts.value).map(normaliseContact); else failed.push('customers');
+          if (orders.status === 'fulfilled') state.orders = unwrapArray(orders.value).map(normaliseOrder); else failed.push('orders');
+          if (payments.status === 'fulfilled') state.payments = unwrapArray(payments.value).map(normalisePayment); else failed.push('payments');
+          if (logs.status === 'fulfilled') state.logs = unwrapArray(logs.value); else failed.push('logs');
+          if (templates.status === 'fulfilled') { state.templates = unwrapArray(templates.value); renderTemplateEditor(); } else failed.push('templates');
+
+          if (overview.status === 'fulfilled') {
+            const o = overview.value || {};
+            if (o.counts) {
+              $('metricCustomers').textContent = fmtNum(o.counts.customers ?? state.contacts.length);
+              $('metricOrders').textContent = fmtNum(o.counts.orders ?? state.orders.length);
+              $('metricPayments').textContent = fmtNum(o.counts.payments ?? state.payments.length);
+              $('metricEmails').textContent = fmtNum(o.counts.emails ?? state.logs.length);
+              state.overviewCounts = o.counts;
+            } else {
+              state.overviewCounts = null;
+            }
+          } else {
+            failed.push('overview');
+            state.overviewCounts = null;
+            // Fall back to locally-loaded records so headline tiles aren't stuck at 0.
+            $('metricCustomers').textContent = fmtNum(state.contacts.length);
+            $('metricOrders').textContent = fmtNum(state.orders.length);
+            $('metricPayments').textContent = fmtNum(state.payments.length);
+            $('metricEmails').textContent = fmtNum(state.logs.length);
+          }
+
+          // Any success → real data from the API. Only fall back to 'imported' when no live call succeeded.
+          if (failed.length === 0) state.source = 'api';
+          else if (results.some(r => r.status === 'fulfilled')) state.source = 'api-partial';
+          // else: all API calls failed — leave source unchanged so the last-known origin label persists.
+          state.connection = failed.length === 0;
+          updateMetrics();
+
+          if (failed.length === 0) {
+            setConnection(true, 'Last synced ' + new Date().toLocaleString());
+            $('setupNotice').classList.add('hide');
+            setDiagnostics('Admin sync completed successfully.', 'ok');
+          } else {
+            setConnection(false, 'Partial sync. Failed: ' + failed.join(', '));
+            $('setupNotice').classList.remove('hide');
+            $('setupNotice').querySelector('strong').textContent = 'Partial Connection Error';
+            $('setupNotice').querySelector('p').textContent = 'Could not load: ' + failed.join(', ') + '. Please check your server logs.';
+            setDiagnostics('Admin sync partially completed. Missing: ' + failed.join(', '), 'warn');
+          }
+        } catch (e) {
+          setConnection(false, 'Connection failed: ' + e.message);
+          $('setupNotice').classList.remove('hide');
+          $('setupNotice').querySelector('strong').textContent = 'Database Connection Error';
+          $('setupNotice').querySelector('p').textContent = 'Failed to connect to the backend: ' + e.message;
+          setDiagnostics('Admin sync error: ' + e.message, 'error');
+        }
+      }
+
+      async function saveFlows() { const cfg = getConfigFromForm(); saveStorage(STORAGE.flows, state.flows); try { await apiRequest(cfg.settings, { method: 'POST', body: { workflows: state.flows.map(({ id, name, enabled, steps, event, category }) => ({ id, name, enabled, steps, event, category })), updatedAt: new Date().toISOString() } }); toast('Workflow settings saved to the backend.', 'success'); setDiagnostics('Workflow configuration published to backend.', 'ok'); } catch (e) { toast('Saved locally only. Backend save failed: ' + e.message, 'warn'); setDiagnostics('Workflow settings remain local; server must implement the settings route.', 'warn'); } }
+      async function runQueue() { const cfg = getConfigFromForm(); if (!window.confirm('Ask the connected backend to process due email jobs now? This may send real emails if the server queue is configured.')) return; try { const r = await apiRequest(cfg.run, { method: 'POST', body: { source: 'admin_dashboard', requestedAt: new Date().toISOString(), enabledWorkflows: state.flows.filter(x => x.enabled).map(x => x.id) } }); if (r && r.busy === true) { $('queueResult').textContent = 'Cron is already running — this manual trigger was skipped. Wait for the current cycle to finish or try again in a few seconds.'; $('queuePill').className = 'pill warn'; $('queuePill').textContent = 'Busy — skipped'; setDiagnostics('Queue run skipped: cron already running.', 'warn'); toast('Cron is busy — no jobs were processed by this trigger.', 'warn'); return; } $('queueResult').textContent = (r && r.message) || 'Queue request completed.'; $('queuePill').className = 'pill good'; $('queuePill').textContent = 'Run requested'; setDiagnostics('Queue run accepted by backend.', 'ok'); await syncAdminData(); } catch (e) { $('queueResult').textContent = 'No emails were dispatched from this browser. Queue route error: ' + e.message; setDiagnostics('Queue route unavailable or failed: ' + e.message, 'error'); toast('Queue run failed: ' + e.message, 'error'); } }
+      $('saveFlowsBtn').addEventListener('click', saveFlows); $('runQueueBtn').addEventListener('click', runQueue); $('saveConfigBtn').addEventListener('click', () => { state.config = getConfigFromForm(); saveStorage(STORAGE.config, state.config); setDiagnostics('Connection settings saved in this browser.', 'ok'); toast('Connection settings saved locally.', 'success'); });
+      $('testConnBtn').addEventListener('click', async () => {
+        const btn = $('testConnBtn');
+        const prev = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '⏳ Testing…';
+        try { await testConnection(); } finally { btn.disabled = false; btn.textContent = prev; }
+      });
+      $('testGmailOAuthBtn').addEventListener('click', async () => {
+        const btn = $('testGmailOAuthBtn');
+        const prev = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = '⏳ Checking…';
+        try {
+          const cfg = getConfigFromForm();
+          const checkUrl = cfg.gmailCheck || defaultConfig.gmailCheck;
+          if (!checkUrl) throw new Error('Gmail OAuth check route is empty. Set it in Settings → Advanced.');
+          const r = await apiRequest(checkUrl);
+          if (!r || !r.ok) throw new Error((r && r.error) || 'OAuth check returned not-ok');
+          toast('Gmail OAuth OK · sender ' + (r.sender || '?') + ' · account ' + (r.gmailAccount || '?'), 'success');
+          setDiagnostics('Gmail OAuth check passed. Transport = ' + (r.transport || 'gmail-oauth2') + '. SMTP used = ' + (r.smtpUsed ? 'YES (unexpected)' : 'no') + '.', 'ok');
+        } catch (e) {
+          toast('Gmail OAuth check failed: ' + e.message, 'error');
+          setDiagnostics('Gmail OAuth check FAILED: ' + e.message, 'error');
+        } finally {
+          btn.disabled = false;
+          btn.textContent = prev;
+        }
+      }); $('resetFlowsBtn').addEventListener('click', () => { if (!confirm('Reset all workflow toggles to their default settings?')) return; state.flows = workflows.map(x => ({ ...x })); saveStorage(STORAGE.flows, state.flows); renderWorkflows(); renderOverviewWorkflows(); toast('Default workflow settings restored locally.', 'success'); }); $('refreshLogsBtn').addEventListener('click', async () => { try { state.logs = unwrapArray(await apiRequest(getConfigFromForm().logs)); updateMetrics(); toast('Logs refreshed.', 'success'); } catch (e) { toast('Could not refresh logs: ' + e.message, 'error'); } }); $('retryAllFailedBtn').addEventListener('click', retryAllFailed); { const cdb = $('clearDiagnosticsBtn'); if (cdb) cdb.addEventListener('click', () => { state.diagnostics = []; const d = $('diagnostics'); if (d) d.textContent = 'No diagnostics recorded.'; }); } $('logSearch').addEventListener('input', renderLogs); $('logFilter').addEventListener('change', renderLogs);
+      // ===== Bulk mail sender (personal Gmail) — sundhari =====
+      const bulkState = { recipients: [], duplicateCount: 0, sending: false, stopRequested: false, results: [], abortController: null, batchIds: [] };
+      const BULK_TEMPLATES = {
+        custom: null,
+        'order-confirm': { subject: '🎉 Thank you for your {{business_name}} order!', body: 'Hi {{name}},\n\nThank you so much for your order! 🙌 Your order ID is {{orderId}}. We are getting everything ready and will keep you posted.\n\nYou have completed {{orderCount}} order(s) so far. Only {{ordersLeft}} more until your 7th invitation is FREE! 🎁\n\nHave a wonderful day,\nThe {{business_name}} Team ✨' },
+        'review-thank': { subject: '⭐ Thank you for your review!', body: 'Hi {{name}},\n\nThank you for taking the time to leave a review. 💬 Your feedback means the world to us and helps us keep improving {{business_name}}.\n\nAs a reminder: complete 6 orders and the 7th invitation is free. You have {{ordersLeft}} order(s) left to unlock it. 🥂\n\nWarm regards,\nThe {{business_name}} Team 💜' },
+        'loyalty': { subject: '🎁 You have {{ordersLeft}} order(s) left for a FREE invitation!', body: 'Hi {{name}},\n\nGreat news! You have completed {{orderCount}} order(s) with {{business_name}}. You are only {{ordersLeft}} order(s) away from earning a FREE 7th invitation. 🎊\n\nOur good offer: complete 6 orders and the 7th is free.\n\nWe would love to help you celebrate your next event! 🥂\n\nThe {{business_name}} Team ✨' },
+        'promo': { subject: '✨ A special offer from {{business_name}}', body: 'Hi {{name}},\n\nWe have a good offer for you: complete 6 orders and your 7th invitation is completely free! 🎁\n\nYou currently have {{ordersLeft}} order(s) left to unlock it.\n\nWe look forward to helping you create something beautiful. 💌\n\nThe {{business_name}} Team' }
+      };
+      const BULK_EMAIL_RE = /^[A-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?(?:\.[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?)+$/i;
+      const BULK_EMAIL_RE_G = /[A-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?(?:\.[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?)+/ig;
+      function bulkSetStatus(id, msg, cls) { const el = $(id); if (!el) return; el.textContent = msg; el.className = 'bulk-status' + (cls ? ' ' + cls : ''); }
+      function bulkAddLog(email, status, detail) { const log = $('bulkLog'); if (!log) return; const row = document.createElement('div'); row.className = 'bulk-logrow'; const pill = document.createElement('span'); pill.className = 'pill ' + (status === 'SENT' ? 'good' : status === 'FAILED' ? 'bad' : status === 'SKIPPED' ? 'warn' : 'neutral'); pill.textContent = status; const addr = document.createElement('span'); addr.className = 'addr'; addr.textContent = email + (detail ? ' — ' + detail : ''); row.append(pill, addr); log.prepend(row); }
+      function bulkUpdateMetrics() { const sent = bulkState.results.filter(x => x.status === 'SENT' || x.status === 'QUEUED').length; const failed = bulkState.results.filter(x => x.status === 'FAILED').length; const total = bulkState.recipients.length; const m1 = $('bulkMRecipients'), m2 = $('bulkMSent'), m3 = $('bulkMFailed'); if (m1) m1.textContent = total; if (m2) m2.textContent = sent; if (m3) m3.textContent = failed; const finished = bulkState.results.length; const bar = $('bulkProgressBar'); if (bar) bar.style.width = (total ? Math.min(100, finished / total * 100) : 0) + '%'; const pt = $('bulkProgressText'); if (pt) pt.textContent = bulkState.sending ? 'Processed ' + finished + ' of ' + total : total ? (finished === total ? 'Finished ' + finished + ' of ' + total : 'Ready · ' + total + ' recipient(s)') : 'Waiting to start'; const ex = $('bulkExportBtn'); if (ex) ex.disabled = bulkState.results.length === 0; const ready = !!state.connection && !!bulkState.recipients.length && !!$('bulkSubject').value.trim() && !!$('bulkBody').value.trim() && $('bulkPermission').checked && !bulkState.sending; const sb = $('bulkSendBtn'); if (sb) sb.disabled = !ready; }
+      function bulkExtractRecipients(text) {
+        if (!text.trim()) return { unique: [], duplicates: 0, detected: 0 };
+        const rows = [];
+        let row = [], field = '', quoted = false;
+        for (let i = 0; i < text.length; i++) {
+          const c = text[i], next = text[i + 1];
+          if (quoted) {
+            if (c === '"' && next === '"') { field += '"'; i++; }
+            else if (c === '"') { quoted = false; }
+            else field += c;
+          } else {
+            if (c === '"' && field === '') quoted = true;
+            else if (c === ',') { row.push(field); field = ''; }
+            else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+            else if (c !== '\r') field += c;
+          }
+        }
+        if (field.length || row.length) { row.push(field); rows.push(row); }
+        if (!rows.length) return { unique: [], duplicates: 0, detected: 0 };
+
+        const norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const headers = rows[0].map(h => h.trim());
+        const normHeaders = headers.map(norm);
+        const emailAliases = ['email', 'emailaddress', 'mail'];
+        const nameAliases = ['name', 'fullname', 'customername'];
+        const emailIdx = normHeaders.findIndex(h => emailAliases.includes(h));
+        const hasHeader = emailIdx >= 0;
+        const headerIndex = aliases => hasHeader ? normHeaders.findIndex(h => aliases.includes(h)) : -1;
+        const dataRows = hasHeader ? rows.slice(1) : rows;
+        const ei = hasHeader ? emailIdx : -1, ni = hasHeader ? headerIndex(nameAliases) : -1, oi = hasHeader ? headerIndex(['ordercount']) : -1, idi = hasHeader ? headerIndex(['orderid']) : -1;
+
+        const seen = new Set();
+        const unique = [];
+        let duplicates = 0, detected = 0;
+
+        for (const parts of dataRows) {
+          if (parts.length === 1 && !parts[0].trim()) continue;
+          let email = '', name = '', orderCount = 0, orderId = '';
+          if (hasHeader) {
+            email = (ei >= 0 ? parts[ei] : '') || '';
+            name = (ni >= 0 ? parts[ni] : '') || '';
+            orderId = (idi >= 0 ? parts[idi] : '') || '';
+            const rc = oi >= 0 ? parts[oi] : '';
+            orderCount = Math.max(0, parseInt(rc, 10) || 0);
+          } else {
+            const line = parts.join(',');
+            const m = line.match(BULK_EMAIL_RE_G);
+            if (m) email = m[0].replace(/[),.;:]+$/, '');
+            else if (line.includes(',')) {
+              for (const p of line.split(',')) {
+                const mm = p.trim().match(BULK_EMAIL_RE_G);
+                if (mm) { email = mm[0].replace(/[),.;:]+$/, ''); break; }
+              }
+            }
+            if (email) {
+              const others = parts.map(p => p.trim()).filter(p => p && !BULK_EMAIL_RE.test(p));
+              // 0–6 → orderCount; the first non-numeric token → name. Digits > 6 are ignored.
+              const numPart = others.find(p => /^\d+$/.test(p) && parseInt(p, 10) <= 6);
+              const namePart = others.find(p => !/^\d+$/.test(p));
+              if (namePart) name = namePart;
+              if (numPart) orderCount = Math.max(0, Math.min(6, parseInt(numPart, 10) || 0));
+            }
+          }
+          detected++;
+          if (!email || !BULK_EMAIL_RE.test(email)) continue;
+          const key = email.toLowerCase();
+          if (seen.has(key)) { duplicates++; continue; }
+          seen.add(key);
+          unique.push({ email, name, orderCount, orderId });
+        }
+        return { unique, duplicates, detected };
+      }
+      function bulkParseRecipients() { if (bulkState.sending) { bulkSetStatus('bulkRecipientStatus', 'A send is in progress — cannot reload the recipient list. Wait for it to finish or hit Stop.', 'warn'); return; } const res = bulkExtractRecipients($('bulkEmails').value); bulkState.recipients = res.unique; bulkState.duplicateCount = res.duplicates; bulkState.results = []; const log = $('bulkLog'); if (log) { log.replaceChildren(); bulkAddLog('Recipients checked', 'READY', res.unique.length + ' unique address(es)'); } const fm = $('bulkFileMeta'); if (fm) fm.textContent = $('bulkFileInput').files[0]?.name || 'Pasted list'; const ignored = Math.max(0, res.detected - res.unique.length - res.duplicates); const extras = []; if (res.duplicates) extras.push(res.duplicates + ' duplicate(s) removed'); if (ignored) extras.push(ignored + ' invalid token(s) ignored'); bulkSetStatus('bulkRecipientStatus', res.unique.length + ' unique email address(es) loaded' + (extras.length ? ' · ' + extras.join(' · ') : ''), 'good'); bulkUpdateMetrics(); }
+      $('bulkFileInput').addEventListener('change', async e => {
+        if (bulkState.sending) { bulkSetStatus('bulkRecipientStatus', 'A send is in progress — cannot load a new list now.', 'warn'); e.target.value = ''; return; }
+        const f = e.target.files && e.target.files[0]; if (!f) return;
+        try {
+          const text = await f.text();
+          // Re-check after await — the send could have started while we were reading the file.
+          if (bulkState.sending) { bulkSetStatus('bulkRecipientStatus', 'A send started while reading the file — list not replaced.', 'warn'); e.target.value = ''; return; }
+          $('bulkEmails').value = text;
+          bulkParseRecipients();
+        } catch (err) { bulkSetStatus('bulkRecipientStatus', 'Could not read file: ' + err.message, 'bad'); }
+      });
+      $('bulkParseBtn').addEventListener('click', bulkParseRecipients);
+      $('bulkClearBtn').addEventListener('click', () => { if (bulkState.sending) return; $('bulkEmails').value = ''; $('bulkFileInput').value = ''; const fm = $('bulkFileMeta'); if (fm) fm.textContent = 'No file loaded'; bulkState.recipients = []; bulkState.results = []; const log = $('bulkLog'); if (log) { log.replaceChildren(); bulkAddLog('Ready to load list', 'READY', ''); } bulkSetStatus('bulkRecipientStatus', 'Recipient list cleared.'); bulkUpdateMetrics(); });
+      ['bulkSubject', 'bulkBody'].forEach(id => $(id).addEventListener('input', bulkUpdateMetrics));
+      $('bulkPermission').addEventListener('change', bulkUpdateMetrics);
+      $('bulkCampaignType').addEventListener('change', () => {
+        const el = $('bulkCampaignType');
+        // Block template switching mid-send so the user can't lose the in-flight subject/body.
+        if (bulkState.sending) { el.value = el.dataset.prevValue || 'custom'; bulkSetStatus('bulkSendStatus', 'Cannot change template type while a send is in progress.', 'warn'); return; }
+        const prevVal = el.dataset.prevValue || 'custom';
+        const prevT = BULK_TEMPLATES[prevVal];
+        const newT = BULK_TEMPLATES[el.value];
+        if (newT) {
+          $('bulkSubject').value = newT.subject;
+          $('bulkBody').value = newT.body;
+        } else if (prevT && $('bulkSubject').value === prevT.subject && $('bulkBody').value === prevT.body) {
+          // Switching back to Custom and the fields still hold the previous template verbatim — start fresh.
+          // If the user had already typed their own content, preserve it.
+          $('bulkSubject').value = '';
+          $('bulkBody').value = '';
+        }
+        el.dataset.prevValue = el.value;
+        bulkUpdateMetrics();
+      });
+
+      $('bulkSendBtn').addEventListener('click', async () => {
+        if (bulkState.sending) return;
+        if (!bulkState.recipients.length || !$('bulkSubject').value.trim() || !$('bulkBody').value.trim()) { bulkSetStatus('bulkSendStatus', 'Add recipients, a subject, and message content.', 'warn'); return; }
+        if (!$('bulkPermission').checked) { bulkSetStatus('bulkSendStatus', 'Confirm permission to contact these recipients before sending.', 'warn'); return; }
+        if (!state.connection) { bulkSetStatus('bulkSendStatus', 'Backend is not connected — open Settings and click Test connection before sending.', 'bad'); return; }
+        const count = bulkState.recipients.length;
+        const ok = window.confirm('Queue ' + count + ' separate email(s) for background delivery via your server? Check the subject and message before continuing.');
+        if (!ok) return;
+
+        bulkState.sending = true;
+        bulkState.stopRequested = false;
+        bulkState.results = [];
+        bulkState.abortController = new AbortController();
+        bulkState.batchIds = [];
+        const log = $('bulkLog');
+        if (log) log.replaceChildren();
+        $('bulkSendBtn').disabled = true;
+        $('bulkStopBtn').disabled = false;
+        $('bulkPermission').disabled = true;
+        const subject = $('bulkSubject').value.trim(), body = $('bulkBody').value;
+        bulkSetStatus('bulkSendStatus', 'Server is processing emails...', 'warn');
+        bulkUpdateMetrics();
+
+        try {
+          const url = apiUrl('/api/admin/email-automation/send-bulk');
+          const BATCH_SIZE = 100;
+          const batches = [];
+          for (let i = 0; i < bulkState.recipients.length; i += BATCH_SIZE) {
+            batches.push(bulkState.recipients.slice(i, i + BATCH_SIZE));
+          }
+          let totalQueued = 0, totalFailed = 0, totalSuppressed = 0;
+
+          let failedBatches = 0;
+          for (let b = 0; b < batches.length; b++) {
+            if (bulkState.stopRequested) {
+              bulkSetStatus('bulkSendStatus', `Stopped after ${b} of ${batches.length} batch(es). Some emails may already be queued.`, 'warn');
+              break;
+            }
+            const batch = batches[b];
+            if (batches.length > 1) {
+              bulkSetStatus('bulkSendStatus', `Sending batch ${b + 1} of ${batches.length} (${batch.length} recipients)…`, 'warn');
+            } else {
+              bulkSetStatus('bulkSendStatus', 'Server is processing emails...', 'warn');
+            }
+            try {
+              const res = await fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'fetch' },
+                body: JSON.stringify({ recipients: batch, subject, body }),
+                signal: bulkState.abortController.signal
+              });
+              const data = await res.json();
+              if (!res.ok) throw new Error((data && data.error) || ('HTTP ' + res.status) + ' on batch ' + (b + 1));
+
+              if (res.status === 202 && typeof data.queued === 'number') {
+                totalQueued += data.queued;
+                totalFailed += data.failed || 0;
+                totalSuppressed += data.suppressed || 0;
+                if (data.batchId) bulkState.batchIds.push(data.batchId);
+                const failedEmails = new Set((data.failedList || []).map(f => String(f.email || '').toLowerCase()));
+                const suppressedEmails = new Set((data.suppressedList || []).map(f => String(f.email || '').toLowerCase()));
+                const expectedQueued = batch.length - failedEmails.size - suppressedEmails.size;
+                let dedupLeft = Math.max(0, expectedQueued - data.queued);
+                batch.forEach(r => {
+                  const key = String(r.email).toLowerCase();
+                  if (suppressedEmails.has(key)) {
+                    bulkState.results.push({ email: r.email, status: 'SKIPPED', detail: 'Suppressed (opted out)', time: new Date().toISOString() });
+                    bulkAddLog(r.email, 'SKIPPED', 'Suppressed (opted out)');
+                  } else if (failedEmails.has(key)) {
+                    bulkState.results.push({ email: r.email, status: 'FAILED', detail: 'Rejected', time: new Date().toISOString() });
+                    bulkAddLog(r.email, 'FAILED', 'Rejected (batch ' + (b + 1) + ')');
+                  } else if (dedupLeft > 0) {
+                    bulkState.results.push({ email: r.email, status: 'SKIPPED', detail: 'Deduped server-side', time: new Date().toISOString() });
+                    bulkAddLog(r.email, 'SKIPPED', 'Deduped server-side');
+                    dedupLeft--;
+                  } else {
+                    bulkState.results.push({ email: r.email, status: 'QUEUED', detail: 'Batch ' + (b + 1), time: new Date().toISOString() });
+                    bulkAddLog(r.email, 'QUEUED', 'Batch ' + (b + 1));
+                  }
+                });
+              } else if (Array.isArray(data.sentList) && Array.isArray(data.failedList)) {
+                data.sentList.forEach(r => {
+                  bulkState.results.push({ email: r.email, status: 'SENT', detail: 'Accepted · id=' + (r.id || ''), time: new Date().toISOString() });
+                  bulkAddLog(r.email, 'SENT', 'Accepted');
+                });
+                data.failedList.forEach(r => {
+                  bulkState.results.push({ email: r.email, status: 'FAILED', detail: r.error || 'Rejected', time: new Date().toISOString() });
+                  bulkAddLog(r.email, 'FAILED', r.error || 'Rejected');
+                });
+                totalQueued += data.sentList.length;
+                totalFailed += data.failedList.length;
+              } else {
+                throw new Error('Unexpected response format from server (batch ' + (b + 1) + ')');
+              }
+            } catch (batchErr) {
+              if (batchErr.name === 'AbortError') throw batchErr;
+              if (/HTTP (401|403)\b/.test(String(batchErr.message))) throw batchErr;
+              failedBatches++;
+              batch.forEach(r => {
+                bulkState.results.push({ email: r.email, status: 'FAILED', detail: 'Batch error: ' + batchErr.message, time: new Date().toISOString() });
+                bulkAddLog(r.email, 'FAILED', 'Batch ' + (b + 1) + ': ' + batchErr.message);
+              });
+              bulkSetStatus('bulkSendStatus', `Batch ${b + 1} of ${batches.length} failed: ${batchErr.message}. Continuing with next batch…`, 'warn');
+            }
+            bulkUpdateMetrics();
+          }
+
+          if (!bulkState.stopRequested) {
+            const summary = (batches.length > 1
+              ? `Queued ${totalQueued} across ${batches.length} batch(es)`
+              : `Queued ${totalQueued} for background delivery`)
+              + (totalFailed ? `, ${totalFailed} failed` : '')
+              + (totalSuppressed ? `, ${totalSuppressed} skipped (opted out)` : '')
+              + (failedBatches ? `, ${failedBatches} batch(es) errored` : '')
+              + '. Check Activity logs for send results.';
+            bulkSetStatus('bulkSendStatus', summary, (totalFailed || failedBatches) ? 'warn' : 'good');
+          }
+        } catch (err) {
+          if (err.name === 'AbortError') bulkSetStatus('bulkSendStatus', 'Stopped by user. Some emails may already have been sent.', 'warn');
+          else bulkSetStatus('bulkSendStatus', 'Server error: ' + err.message, 'bad');
+        } finally {
+          bulkState.sending = false;
+          bulkState.abortController = null;
+          $('bulkStopBtn').disabled = true;
+          $('bulkPermission').disabled = false;
+          bulkUpdateMetrics();
+        }
+      });
+      $('bulkStopBtn').addEventListener('click', async () => {
+        bulkState.stopRequested = true;
+        if (bulkState.abortController) { try { bulkState.abortController.abort(); } catch (_) { } }
+        $('bulkStopBtn').disabled = true;
+        bulkSetStatus('bulkSendStatus', 'Stopping…', 'warn');
+        if (bulkState.batchIds && bulkState.batchIds.length > 0) {
+          let totalCancelled = 0, cancelErrors = 0;
+          for (const bid of bulkState.batchIds) {
+            try {
+              const url = apiUrl('/api/admin/email-automation/cancel-bulk');
+              const r = await fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'fetch' },
+                body: JSON.stringify({ batchId: bid })
+              });
+              const d = await r.json().catch(() => ({}));
+              if (r.ok) totalCancelled += (d.cancelled || 0);
+              else cancelErrors++;
+            } catch (_) { cancelErrors++; }
+          }
+          const suffix = cancelErrors ? ` (${cancelErrors} batch(es) could not be cancelled — some emails may still send)` : '';
+          bulkSetStatus('bulkSendStatus', `Stopped. Cancelled ${totalCancelled} queued email(s) across ${bulkState.batchIds.length} batch(es)${suffix}. Note: up to 10 jobs already claimed by the server may still finish sending over the next ~20 seconds.`, 'warn');
+        } else {
+          bulkSetStatus('bulkSendStatus', 'Stopped. Some emails may already have been sent.', 'warn');
+        }
+      });
+      $('bulkExportBtn').addEventListener('click', () => { if (!bulkState.results.length) return; const esc = s => '"' + String(s ?? '').replace(/"/g, '""') + '"'; const csv = ['email,status,detail,time', ...bulkState.results.map(r => [r.email, r.status, r.detail, r.time].map(esc).join(','))].join('\r\n'); const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' })); const a = document.createElement('a'); a.href = url; a.download = 'email-send-log.csv'; document.body.append(a); a.click(); a.remove(); URL.revokeObjectURL(url); });
+      window.addEventListener('beforeunload', (e) => {
+        if (bulkState.sending) { e.preventDefault(); e.returnValue = ''; }
+      });
+      // ===== End bulk mail sender =====
+      function csvCell(v) { return '"' + String(v ?? '').replace(/"/g, '""') + '"'; } function downloadCsv(filename, rows) { if (!rows.length) { toast('No records to export.', 'warn'); return; } const keys = [...new Set(rows.flatMap(r => Object.keys(r)))]; const csv = [keys.map(csvCell).join(','), ...rows.map(r => keys.map(k => csvCell(typeof r[k] === 'object' ? JSON.stringify(r[k]) : r[k])).join(','))].join('\r\n'); const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' }), url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = filename; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 500); } $('exportContactsBtn').addEventListener('click', () => downloadCsv('customers-export.csv', state.contacts)); $('exportOrdersBtn').addEventListener('click', () => downloadCsv('orders-export.csv', state.orders)); $('exportLogsBtn').addEventListener('click', () => downloadCsv('email-logs.csv', state.logs));
+      function renderTemplatesList() { const box = $('templatePicks'); box.replaceChildren(); $('templateCount').textContent = state.templates.length; state.templates.forEach(t => { const b = document.createElement('button'); b.className = 'template-pick' + (t.id === state.currentTemplate ? ' active' : ''); b.textContent = t.name; b.addEventListener('click', () => { syncTemplateFromForm(); state.currentTemplate = t.id; renderTemplateEditor(); }); box.append(b); }); }
+      function selectedTemplate() { return state.templates.find(t => t.id === state.currentTemplate) || state.templates[0]; }
+      function syncTemplateFromForm() { const t = selectedTemplate(); if (!t) return; t.name = $('templateName').value; t.subject = $('templateSubject').value; t.html = $('templateHtml').value; t.text = $('templateText').value; }
+      function renderTemplateEditor() { const t = selectedTemplate(); if (!t) return; $('templateName').value = t.name; $('templateSubject').value = t.subject; $('templateHtml').value = t.html; $('templateText').value = t.text; renderTemplatesList(); renderPreview(); }
+      function valuesForPreview() { return { ...sampleVars, customer_name: $('testName').value.trim() || 'A Customer', first_name: ($('testName').value.trim() || 'A Customer').split(/\s+/)[0] }; }
+      function applyVars(src, vars, escapeValues) {
+        const URL_FIELDS = ['site_url', 'invitation_url', 'review_url', 'support_url', 'unsubscribe_url', 'receipt_url', 'inquiry_url'];
+        return String(src || '').replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (m, k) => {
+          if (!Object.prototype.hasOwnProperty.call(vars, k)) return '';
+          const val = String(vars[k]);
+          if (URL_FIELDS.includes(k) && /^https?:\/\//i.test(val)) return val;
+          return escapeValues ? esc(val) : val;
+        });
+      }
+      function applyVarsHtml(src, vars) { return applyVars(src, vars, true); }
+      function applyVarsText(src, vars) { return applyVars(src, vars, false); }
+      function renderPreview() { syncTemplateFromForm(); const t = selectedTemplate(), vars = valuesForPreview(); if (!t) return; const html = applyVarsHtml(t.html, vars), txt = applyVarsText(t.text, vars); $('templatePreview').srcdoc = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0">' + html + '</body></html>'; $('textPreview').textContent = txt; $('templatePreview').classList.toggle('hide', state.previewMode !== 'html'); $('textPreview').classList.toggle('hide', state.previewMode !== 'text'); }
+      $('templateHtml').addEventListener('input', renderPreview); $('templateText').addEventListener('input', renderPreview); $('templateSubject').addEventListener('input', () => { syncTemplateFromForm(); }); $('templateName').addEventListener('input', () => { syncTemplateFromForm(); }); $('testName').addEventListener('input', renderPreview); document.querySelectorAll('[data-preview]').forEach(b => b.addEventListener('click', () => { state.previewMode = b.dataset.preview; document.querySelectorAll('[data-preview]').forEach(x => x.classList.toggle('active', x === b)); renderPreview(); })); $('saveTemplateBtn').addEventListener('click', async () => {
+        syncTemplateFromForm();
+        saveStorage(STORAGE.templates, state.templates);
+        renderTemplatesList();
+        renderPreview();
+        try {
+          await apiRequest(getConfigFromForm().settings, {
+            method: 'POST',
+            body: {
+              templates: state.templates.map(({ id, name, subject, html, text }) => ({ id, name, subject, html, text })),
+              updatedAt: new Date().toISOString()
+            }
+          });
+          toast('Template saved and published to backend.', 'success');
+        } catch (e) {
+          toast('Saved locally only. Backend save failed: ' + e.message);
+        }
+      }); $('restoreTemplatesBtn').addEventListener('click', () => { toast('Restore defaults must be handled by the server (templates are now loaded from /templates/*.json).', 'warn'); });
+      $('sendTestBtn').addEventListener('click', async () => { syncTemplateFromForm(); if (!state.connection) { toast('Connect to the backend first.', 'warn'); return; } const recipient = $('testRecipient').value.trim(); if (!recipient || !/^\S+@\S+\.\S+$/.test(recipient)) { toast('Enter a valid test email address.', 'warn'); return; } if (!$('confirmTest').checked) { toast('Confirm the recipient is your own inbox or has agreed to the test.', 'warn'); return; } if (!confirm('Send one test email to ' + recipient + ' using the connected backend?')) return; const t = selectedTemplate(), vars = valuesForPreview(); if (!t) { toast('No template loaded.', 'warn'); return; } $('testSendStatus').textContent = 'Sending test request…'; try { const res = await apiRequest(getConfigFromForm().test, { method: 'POST', body: { to: recipient, template_id: t.id, subject: applyVarsText(t.subject, vars), html: applyVarsHtml(t.html, vars), text: applyVarsText(t.text, vars), test: true } }); $('testSendStatus').textContent = 'Backend accepted test request: ' + JSON.stringify(res).slice(0, 450); setDiagnostics('Test email request accepted for ' + recipient + '.', 'ok'); if (res && res.warning) toast(res.warning, 'warn'); else toast('Test email request accepted by backend.', 'success'); } catch (e) { $('testSendStatus').textContent = 'Not sent. Backend test-sender route failed: ' + e.message; setDiagnostics('Test send failed; no email confirmed sent. ' + e.message, 'error'); toast('Test email not sent: ' + e.message, 'error'); } });
+      function loadState() {
+        state.config = { ...defaultConfig, ...readStorage(STORAGE.config, {}) };
+        const storedFlows = readStorage(STORAGE.flows, null);
+        if (Array.isArray(storedFlows)) { const storedMap = new Map(storedFlows.map(f => [f.id, f])); state.flows = workflows.map(def => ({ ...def, enabled: storedMap.get(def.id)?.enabled ?? def.enabled })); }
+        else { state.flows = workflows.map(x => ({ ...x })); }
+        state.templates = readStorage(STORAGE.templates, []);
+        setConfigForm(state.config); renderWorkflows(); renderOverviewWorkflows(); renderTemplateEditor(); updateMetrics(); if (!state.connection) setConnection(false, 'Not tested yet.');
+      }
+
+      // ===== THEME TOGGLE =====
+      function applyTheme(theme) {
+        if (theme === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+        else { document.documentElement.removeAttribute('data-theme'); }
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b1120' : '#f8fafc');
+        var btn = $('themeToggle');
+        if (btn) { btn.textContent = theme === 'dark' ? '☀ Light' : '🌙 Dark'; btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false'); }
+      }
+
+      function currentTheme() { try { return localStorage.getItem('sundhari_theme_v1') === 'light' ? 'light' : 'dark'; } catch (e) { return 'dark'; } }
+
+      function initTheme() {
+        applyTheme(currentTheme());
+        var btn = $('themeToggle');
+        if (btn) btn.addEventListener('click', function () {
+          var next = currentTheme() === 'dark' ? 'light' : 'dark';
+          try { localStorage.setItem('sundhari_theme_v1', next); } catch (e) { }
+          applyTheme(next);
+        });
+      }
+
+      // ===== WHATSAPP SENDER LOGIC =====
+      (function initWhatsApp() {
+        const $wa = id => document.getElementById(id);
+        let waContacts = [];
+        let waIndex = 0;
+        const phoneHeader = /phone|mobile|number|telephone|whatsapp|contact|tel/i;
+
+        function parseCSV(text) {
+          const rows = []; let row = [], cell = '', quoted = false;
+          for (let i = 0; i < text.length; i++) {
+            const ch = text[i];
+            if (ch === '"' && quoted && text[i + 1] === '"') { cell += '"'; i++; }
+            else if (ch === '"') { quoted = !quoted; }
+            else if (ch === ',' && !quoted) { row.push(cell); cell = ''; }
+            else if ((ch === '\n' || ch === '\r') && !quoted) {
+              if (ch === '\r' && text[i + 1] === '\n') i++;
+              row.push(cell); if (row.some(v => v.trim())) rows.push(row); row = []; cell = '';
+            } else cell += ch;
+          }
+          row.push(cell); if (row.some(v => v.trim())) rows.push(row);
+          return rows;
+        }
+        function normalize(raw, defaultCode) {
+          let s = String(raw ?? '').trim();
+          if (!s) return null;
+          if (!/^[+\d\s().-]+$/.test(s)) return null;
+          let digits = s.replace(/\D/g, '');
+          if (digits.length < 8 || digits.length > 15) return null;
+          let international = s.trim().startsWith('+');
+          if (digits.startsWith('00')) { digits = digits.slice(2); international = true; }
+          if (international) return digits.length >= 8 && digits.length <= 15 ? digits : null;
+          if (defaultCode && digits.startsWith('0') && digits.length >= 10 && digits.length <= 11) digits = digits.replace(/^0+/, '');
+          if (defaultCode && digits.length <= 10) digits = defaultCode + digits;
+          return digits.length >= 8 && digits.length <= 15 ? digits : null;
+        }
+        function extractFromText(text, defaultCode) {
+          const lines = text.split(/\r?\n/).map(x => x.trim()).filter(Boolean);
+          if (!lines.length) return [];
+          let rawValues = [];
+          if (text.includes(',')) {
+            const rows = parseCSV(text);
+            const first = rows[0] || [];
+            const headerIndex = first.findIndex(v => phoneHeader.test(v.trim()));
+            if (headerIndex < 0 && rows.length === 1) {
+              // Single line, comma-separated, no header row → treat every cell as a number.
+              rawValues = first.slice();
+            } else {
+              const col = headerIndex >= 0 ? headerIndex : 0;
+              const start = headerIndex >= 0 ? 1 : 0;
+              rawValues = rows.slice(start).map(r => r[col] ?? '');
+              if (headerIndex < 0 && start === 0 && /phone|mobile|number|whatsapp|contact/i.test(String(rawValues[0] || ''))) rawValues.shift();
+            }
+          } else rawValues = lines;
+          const out = [];
+          for (const v of rawValues) {
+            const n = normalize(v, defaultCode);
+            if (n) out.push(n);
+          }
+          return out;
+        }
+        function renderWA() {
+          $wa('waTotal').textContent = waContacts.length;
+          $wa('waProgressText').textContent = `${Math.min(waIndex, waContacts.length)} / ${waContacts.length}`;
+          $wa('waRemaining').textContent = Math.max(waContacts.length - waIndex, 0);
+          $wa('waBar').style.width = (waContacts.length ? Math.min(waIndex, waContacts.length) / waContacts.length * 100 : 0) + '%';
+          $wa('waCurrent').textContent = waContacts.length && waIndex < waContacts.length ? `Current recipient: ${waIndex + 1} of ${waContacts.length}` : waContacts.length ? 'Queue complete' : 'No recipient loaded';
+          $wa('waPreview').textContent = waContacts.length ? waContacts.slice(0, 8).map((n, i) => `${i + 1}. ${n}`).join('\n') + (waContacts.length > 8 ? `\n… and ${waContacts.length - 8} more` : '') : 'Your number preview will appear here.';
+          $wa('waOpen').disabled = !waContacts.length || waIndex >= waContacts.length || !$wa('waMessage').value.trim();
+          $wa('waNext').disabled = !waContacts.length || waIndex >= waContacts.length || !$wa('waMessage').value.trim();
+          $wa('waReset').disabled = !waContacts.length;
+        }
+        function getMessageUrl(n) {
+          return `https://wa.me/${n}?text=${encodeURIComponent($wa('waMessage').value.trim())}`;
+        }
+
+        $wa('waFile').addEventListener('change', async e => {
+          const f = e.target.files?.[0]; if (!f) return;
+          const text = await f.text();
+          $wa('waNumbers').value = text;
+          $wa('waLoadStatus').textContent = `Loaded file: ${f.name}. Click “Load & check numbers” to validate it.`;
+        });
+
+        $wa('waLoad').addEventListener('click', () => {
+          const def = $wa('waCountry').value.replace(/\D/g, '');
+          const parsed = extractFromText($wa('waNumbers').value, def);
+          waContacts = [...new Set(parsed)]; waIndex = 0;
+          $wa('waLoadStatus').textContent = `Found ${parsed.length} valid entries; ${waContacts.length} unique numbers. ${parsed.length - waContacts.length} duplicate(s) removed.`;
+          $wa('waSendStatus').textContent = ''; renderWA();
+        });
+
+        $wa('waClear').addEventListener('click', () => {
+          $wa('waFile').value = ''; $wa('waNumbers').value = ''; waContacts = []; waIndex = 0;
+          $wa('waLoadStatus').textContent = ''; $wa('waSendStatus').textContent = ''; renderWA();
+        });
+
+        $wa('waMessage').addEventListener('input', renderWA);
+
+        $wa('waOpen').addEventListener('click', () => {
+          if (waIndex >= waContacts.length || !$wa('waMessage').value.trim()) return;
+          const win = window.open(getMessageUrl(waContacts[waIndex]), '_blank', 'noopener');
+          if (!win) { $wa('waSendStatus').textContent = 'Popup blocked. Allow popups for this site and try again.'; return; }
+          $wa('waSendStatus').textContent = `Opened chat for ${waContacts[waIndex]}. Review it and press Send in WhatsApp. After sending, return here and choose “Sent — open next chat”.`;
+        });
+
+        $wa('waNext').addEventListener('click', () => {
+          if (waIndex >= waContacts.length || !$wa('waMessage').value.trim()) return;
+          if (waIndex + 1 < waContacts.length) {
+            // Only advance once the popup actually opens — otherwise a blocked
+            // popup would silently skip the next recipient forever.
+            const win = window.open(getMessageUrl(waContacts[waIndex + 1]), '_blank', 'noopener');
+            if (!win) { $wa('waSendStatus').textContent = 'Popup blocked. Allow popups for this site and try again.'; renderWA(); return; }
+            waIndex++;
+            $wa('waSendStatus').textContent = `Opened recipient ${waIndex + 1} of ${waContacts.length}. Review and send manually in WhatsApp.`;
+          } else {
+            waIndex++;
+            $wa('waSendStatus').textContent = 'Queue complete. Check WhatsApp to confirm all intended messages were sent.';
+          }
+          renderWA();
+        });
+
+        $wa('waReset').addEventListener('click', () => { waIndex = 0; $wa('waSendStatus').textContent = 'Queue reset. Open the first chat when ready.'; renderWA(); });
+        renderWA();
+      })();
+
+      // ===== AUTHENTICATION LOGIC =====
+      const authOverlay = $('authOverlay');
+
+      async function checkAuth() {
+        if (sessionStorage.getItem('sundhari_auth_ok') === '1') {
+          const cfgProbe = await apiRequest('/api/admin/email-automation/setup').catch(() => null);
+          if (cfgProbe && cfgProbe.configured) {
+            document.documentElement.setAttribute('data-authed', '1');
+            authOverlay.style.display = 'none';
+            syncAdminData();
+            return;
+          }
+          sessionStorage.removeItem('sundhari_auth_ok');
+        }
+        try {
+          const cfg = getConfigFromForm();
+          // Use the lightweight liveness probe (unauthenticated) instead of
+          // the protected health route. Avoids a spurious 401 in DevTools
+          // and avoids a wasted round-trip on first paint.
+          const probeUrl = apiUrl('/api/health');
+          let probeRes;
+          try { probeRes = await fetch(probeUrl, { credentials: 'include', headers: { Accept: 'application/json' } }); }
+          catch (_) { probeRes = null; }
+          const d = probeRes && probeRes.ok ? await probeRes.json().catch(() => ({})) : null;
+          if (d && d.status === 'ok' && d.authenticated === true) {
+            sessionStorage.setItem('sundhari_auth_ok', '1');
+            document.documentElement.setAttribute('data-authed', '1');
+            authOverlay.style.display = 'none';
+            syncAdminData();
+            return;
+          }
+        } catch (_) { /* fall through to the login form */ }
+        // Remove the attribute that makes .auth-overlay display:none !important
+        document.documentElement.removeAttribute('data-authed');
+        authOverlay.style.display = 'grid';
+        $('loginPassword').value = '';
+        $('loginStatus').textContent = '';
+        $('loginBtn').disabled = false;
+        $('loginBtn').textContent = 'Unlock Dashboard';
+      }
+
+      $('resetConnBtn').addEventListener('click', () => {
+        if (!confirm('Clear the saved API base URL from this browser and reload?')) return;
+        try { localStorage.removeItem(STORAGE.config); } catch (_) { }
+        location.reload();
+      });
+
+      $('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = $('loginBtn');
+        if (btn.disabled) return;                 // ignore duplicate submits while one is in flight
+        const password = $('loginPassword').value;
+        const status = $('loginStatus');
+
+        btn.disabled = true;
+        btn.classList.add('loading');
+        btn.textContent = 'Authenticating...';
+        status.style.color = 'var(--muted)';
+        status.textContent = 'Connecting to server...';
+
+        try {
+          // Try location.origin first, then the saved config base as a fallback.
+          // This makes a bad persisted base URL recoverable — the login call
+          // still goes to the working origin even if the stored value is wrong.
+          const originCandidates = [
+            (location.protocol === 'http:' || location.protocol === 'https:' ? location.origin : ''),
+            getConfigFromForm().base
+          ].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i);
+          if (!originCandidates.length) throw new Error('Run this page over HTTP(S), not file://.');
+
+          let res = null;
+          let succeededCandidate = null;
+          for (const candidate of originCandidates) {
+            try {
+              const attempt = await fetch(candidate + '/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'fetch' },
+                body: JSON.stringify({ password }),
+                credentials: 'include'
+              });
+              if (attempt.status === 200 || attempt.status === 401 || attempt.status === 429) {
+                res = attempt;
+                succeededCandidate = candidate;
+                break;
+              }
+            } catch (_) { /* try next candidate */ }
+          }
+          if (!res) throw new Error('Could not reach /api/auth/login on any candidate origin.');
+
+          if (res.ok) {
+            sessionStorage.setItem('sundhari_auth_ok', '1');
+            status.style.color = 'var(--green)';
+            status.textContent = 'Login successful! Loading dashboard...';
+            setTimeout(async () => {
+              const cfgProbe = await apiRequest('/api/admin/email-automation/setup').catch(() => null);
+              if (cfgProbe && cfgProbe.configured) {
+                document.documentElement.setAttribute('data-authed', '1');
+                authOverlay.style.display = 'none';
+                $('brandName').textContent = cfgProbe.businessName;
+                $('brandMark').textContent = cfgProbe.businessName.charAt(0).toUpperCase();
+                document.title = cfgProbe.businessName + ' | Email Automation Center';
+
+                if (succeededCandidate === location.origin && $('apiBase').value.trim()) {
+                  const saved = $('apiBase').value.trim();
+                  try {
+                    const u = new URL(saved);
+                    if (u.origin === location.origin) $('apiBase').value = '';
+                  } catch (_) { }
+                }
+                state.config = getConfigFromForm();
+                saveStorage(STORAGE.config, state.config);
+                loadState();
+                syncAdminData();
+              } else {
+                $('loginForm').style.display = 'none';
+                $('loginHeading').textContent = 'Welcome – one quick step';
+                $('loginStatus').textContent = '';
+                $('resetConnBtn').style.display = 'none';
+                $('setupPanel').style.display = 'block';
+              }
+            }, 600);
+          } else {
+            const data = await res.json().catch(() => ({}));
+            status.style.color = 'var(--red)';
+            status.textContent = data.error || 'Incorrect password. Please try again.';
+            btn.classList.remove('loading');
+            btn.disabled = false;
+            btn.textContent = 'Unlock Dashboard';
+            btn.classList.add('shake');
+            setTimeout(() => btn.classList.remove('shake'), 400);
+          }
+        } catch (e) {
+          status.style.color = 'var(--red)';
+          status.textContent = 'Network error. Check your connection.';
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          btn.textContent = 'Unlock Dashboard';
+        }
+      });
+
+
+      // First-run setup: save business type + name, then enable the dashboard
+      $('setupSaveBtn').addEventListener('click', async () => {
+        const type = $('setupBusinessType').value;
+        const name = $('setupBusinessName').value.trim();
+        if (!name) { toast('Enter your business name.', 'warn'); return; }
+        try {
+          await apiRequest('/api/admin/email-automation/setup', { method: 'POST', body: { businessType: type, businessName: name } });
+          $('brandName').textContent = name;
+          $('brandMark').textContent = name.charAt(0).toUpperCase();
+          document.title = name + ' | Email Automation Center';
+          $('setupPanel').style.display = 'none';
+
+          document.documentElement.setAttribute('data-authed', '1');
+          document.getElementById('authOverlay').style.display = 'none';
+
+          toast('Setup complete. Loading templates…', 'success');
+          loadState();
+          syncAdminData();
+        } catch (e) {
+          toast('Setup failed: ' + e.message, 'error');
+        }
+      });
+
+      // ===== MOBILE MENU LOGIC =====
+      $('mobileMenuBtn').addEventListener('click', () => {
+        document.querySelector('.sidebar').classList.add('open');
+        $('mobileOverlay').style.display = 'block';
+      });
+
+      $('mobileOverlay').addEventListener('click', () => {
+        document.querySelector('.sidebar').classList.remove('open');
+        $('mobileOverlay').style.display = 'none';
+      });
+
+      document.querySelectorAll('.nav button[data-view]').forEach(b => {
+        b.addEventListener('click', () => {
+          document.querySelector('.sidebar').classList.remove('open');
+          $('mobileOverlay').style.display = 'none';
+        });
+      });
+
+      // ===== LOGOUT BUTTON =====
+      $('logoutBtn').addEventListener('click', async () => {
+        if (!confirm('Log out of the dashboard?')) return;
+        let ok = false;
+        try {
+          const base = getConfigFromForm().base || (location.protocol === 'http:' || location.protocol === 'https:' ? location.origin : '');
+          if (base) {
+            const res = await fetch(base + '/api/auth/logout', { method: 'POST', credentials: 'include', headers: { 'X-Requested-With': 'fetch' } });
+            ok = res.ok;
+          }
+        } catch (_) { ok = false; }
+        if (!ok) {
+          // Do NOT clear local auth state when the cookie is still live server-side —
+          // the next reload would silently log the user back in on a shared machine.
+          toast('Could not log out — check your connection and try again. You may still be signed in.', 'error');
+          return;
+        }
+        sessionStorage.removeItem('sundhari_auth_ok');
+        document.documentElement.removeAttribute('data-authed');
+        location.reload();
+      });
+
+      // ===== REFRESH DATA BUTTON =====
+      $('refreshDataBtn').addEventListener('click', async () => {
+        const btn = $('refreshDataBtn');
+        if (state.busy) return;
+        state.busy = true;
+        btn.textContent = '⏳ Syncing...';
+        btn.disabled = true;
+        try { await syncAdminData(); }
+        finally { state.busy = false; btn.textContent = '🔄 Refresh'; btn.disabled = false; }
+      });
+
+      // ===== WORKFLOWS ALL ON / ALL OFF =====
+      $('enableAllFlowsBtn').addEventListener('click', () => {
+        const DEAD = new Set(['inquiry_sla', 'inquiry_followup']);
+        const MARKETING = new Set(['signup_nurture', 'repeat_reengage', 'milestone_dates']);
+        const marketingToEnable = state.flows.filter(f => MARKETING.has(f.id) && !f.enabled && !DEAD.has(f.id));
+        if (marketingToEnable.length > 0) {
+          if (!confirm('This will ALSO enable marketing workflows:\n\n• ' + marketingToEnable.map(f => f.name).join('\n• ') + '\n\nMarketing emails require consent from each recipient. Confirm that you have a lawful basis to send these before continuing.')) {
+            return;
+          }
+        }
+        state.flows.forEach(f => { if (!DEAD.has(f.id)) f.enabled = true; });
+        saveStorage(STORAGE.flows, state.flows);
+        renderWorkflows();
+        renderOverviewWorkflows();
+        toast('Enabled all implemented workflows (2 pending-backend toggles skipped). Click Save to backend to publish.', 'info');
+      });
+
+      $('disableAllFlowsBtn').addEventListener('click', () => {
+        state.flows.forEach(f => f.enabled = false);
+        saveStorage(STORAGE.flows, state.flows);
+        renderWorkflows();
+        renderOverviewWorkflows();
+        toast('All workflows disabled locally. Click Save to backend to publish.', 'info');
+      });
+
+      // Admin API contract: return either an array or {data:[...]} for collection endpoints.
+      initTheme();
+      loadState();
+      checkAuth();
+    })();
+  </script>
+</body>
+
+</html>

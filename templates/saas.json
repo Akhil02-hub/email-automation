@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "industry_id": "saas",
+  "industry": "SaaS & Technology",
+  "description": "Professional transactional, lifecycle, product, billing, and service emails for software and technology businesses.",
+  "placeholder_format": "Use double-brace variables, for example {{customer_name}}. Replace every placeholder before sending.",
+  "templates": [
+    {
+      "id": "saas_welcome",
+      "name": "Account Welcome",
+      "type": "lifecycle",
+      "trigger": "Immediately after successful account creation",
+      "subject": "Welcome to {{product_name}}",
+      "body": "Dear {{user_name}},\n\nWelcome to {{product_name}}. Your account has been created successfully.\n\nYou can now access your workspace and explore the tools and features available to you.\n\nAccess your account: {{login_url}}\n\nFor assistance, visit {{help_center_url}} or contact {{support_email}}.\n\nBest regards,\nCustomer Success Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_email_verification",
+      "name": "Email Verification",
+      "type": "transactional",
+      "trigger": "When a user registers or changes their email address",
+      "subject": "Confirm Your Email Address",
+      "body": "Dear {{user_name}},\n\nPlease confirm your email address to complete your registration with {{product_name}}.\n\nVerify your email: {{verification_url}}\n\nThis link expires at {{expiry_time}}. If you did not request this registration, you can ignore this email.\n\nRegards,\nAccount Security Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_password_reset",
+      "name": "Password Reset",
+      "type": "security",
+      "trigger": "When a password reset is requested",
+      "subject": "Password Reset Request",
+      "body": "Dear {{user_name}},\n\nWe received a request to reset the password for your {{product_name}} account. Use the secure link below to choose a new password.\n\nReset password: {{password_reset_url}}\n\nIf you did not request this change, no action is required. You can contact {{security_email}} if you are concerned about your account.\n\nRegards,\nSecurity Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_new_login",
+      "name": "New Login Notification",
+      "type": "security",
+      "trigger": "After a sign-in from a new or unrecognised device, according to account settings",
+      "subject": "New Sign-In Detected on Your Account",
+      "body": "Dear {{user_name}},\n\nA sign-in to your account was detected.\n\nSign-in details:\n- Date and time: {{date_time}}\n- Device: {{device}}\n- Browser: {{browser}}\n- Approximate location: {{location}}\n\nIf this was you, no action is required. If you do not recognise this activity, secure your account here: {{security_url}}\n\nRegards,\nSecurity Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_onboarding",
+      "name": "Product Onboarding",
+      "type": "lifecycle",
+      "trigger": "After account activation or when onboarding begins",
+      "subject": "Let’s Get You Started with {{product_name}}",
+      "body": "Dear {{user_name}},\n\nThank you for joining {{product_name}}. Here are a few steps to help you get started:\n\n1. Complete your profile.\n2. Configure your workspace.\n3. Explore the main features.\n4. Review the getting-started guide.\n\nStart here: {{onboarding_url}}\n\nOur support team is available at {{support_email}} whenever you need assistance.\n\nBest regards,\nCustomer Success Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_trial_expiring",
+      "name": "Free Trial Expiring",
+      "type": "lifecycle",
+      "trigger": "A configured number of days before a free trial ends",
+      "subject": "Your {{product_name}} Trial Is Ending Soon",
+      "body": "Dear {{user_name}},\n\nYour free trial is scheduled to end on {{trial_end_date}}.\n\nTo continue using {{product_name}}, review the available subscription plans and the features included in each plan.\n\nView plans: {{plans_url}}\n\nYour account will be handled according to the trial and subscription terms shown in your account.\n\nRegards,\nSubscription Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_payment_receipt",
+      "name": "Subscription Payment Receipt",
+      "type": "transactional",
+      "trigger": "After a subscription payment succeeds",
+      "subject": "Subscription Payment Successful – {{invoice_number}}",
+      "body": "Dear {{user_name}},\n\nYour subscription payment has been successfully processed.\n\nBilling details:\n- Plan: {{plan_name}}\n- Amount: {{amount}}\n- Payment date: {{payment_date}}\n- Invoice number: {{invoice_number}}\n- Next billing date: {{next_billing_date}}\n\nView your invoice: {{invoice_url}}\n\nThank you for using {{product_name}}.\n\nRegards,\nBilling Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_payment_failed",
+      "name": "Subscription Payment Failed",
+      "type": "transactional",
+      "trigger": "When a recurring subscription payment fails",
+      "subject": "Action Required: Subscription Payment Failed",
+      "body": "Dear {{user_name}},\n\nWe were unable to process the latest payment for your {{product_name}} subscription.\n\nPayment details:\n- Amount: {{amount}}\n- Due date: {{due_date}}\n- Status: {{payment_status}}\n\nPlease review your payment method and retry the payment.\n\nUpdate payment details: {{billing_url}}\n\nFor assistance, contact {{billing_support_email}}.\n\nRegards,\nBilling Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_feature_announcement",
+      "name": "New Feature Announcement",
+      "type": "marketing",
+      "trigger": "When a product feature or major improvement is released",
+      "subject": "Introducing New Features in {{product_name}}",
+      "body": "Dear {{user_name}},\n\nWe’re pleased to announce new improvements to {{product_name}}.\n\nWhat’s new:\n- {{feature_one}}\n- {{feature_two}}\n- {{feature_three}}\n\nThese updates are designed to improve your experience and help you work more efficiently.\n\nExplore the updates: {{release_notes_url}}\n\nThank you for being part of our community.\n\nBest regards,\nProduct Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_maintenance",
+      "name": "Scheduled Maintenance",
+      "type": "service",
+      "trigger": "Before planned maintenance that may affect availability",
+      "subject": "Scheduled Maintenance – {{product_name}}",
+      "body": "Dear {{user_name}},\n\nWe have scheduled system maintenance to improve the performance and reliability of {{product_name}}.\n\nMaintenance details:\n- Date: {{maintenance_date}}\n- Start time: {{start_time}} {{time_zone}}\n- Expected end time: {{end_time}} {{time_zone}}\n- Expected impact: {{service_impact}}\n\nSome services may be temporarily unavailable during this period. We apologise for any inconvenience and appreciate your understanding.\n\nRegards,\nTechnical Operations Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_incident_update",
+      "name": "Service Disruption Update",
+      "type": "service",
+      "trigger": "When a service incident is confirmed or its status changes",
+      "subject": "Service Status Update – {{product_name}}",
+      "body": "Dear {{user_name}},\n\nWe are investigating an issue affecting {{affected_service}}. Our technical team is working to restore normal service.\n\nCurrent status: {{incident_status}}\nAffected services: {{affected_services}}\nLatest update: {{update_details}}\n\nFollow progress on our status page: {{status_page_url}}\n\nWe apologise for the inconvenience and will share further updates as they become available.\n\nRegards,\nTechnical Support Team\n{{company_name}}"
+    },
+    {
+      "id": "saas_reengagement",
+      "name": "Inactive Account Re-engagement",
+      "type": "lifecycle",
+      "trigger": "When an eligible user has been inactive for a defined period",
+      "subject": "We’d Love to Welcome You Back to {{product_name}}",
+      "body": "Dear {{user_name}},\n\nIt has been a while since your last visit to {{product_name}}. We’ve continued improving the platform and introducing features that may be useful to you.\n\nSign in to explore what’s new: {{login_url}}\n\nFor assistance, contact {{support_email}}.\n\nBest regards,\nCustomer Success Team\n{{company_name}}"
+    }
+  ]
+}

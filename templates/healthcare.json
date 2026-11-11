@@ -1,0 +1,121 @@
+{
+    "schema_version": "1.0.0",
+    "industry_id": "healthcare",
+    "industry": "Healthcare & Wellness",
+    "description": "Professional patient registration, appointment, laboratory, pharmacy, telehealth, billing, privacy, and patient-experience emails.",
+    "placeholder_format": "Use double-brace variables, for example {{customer_name}}. Replace every placeholder before sending.",
+    "templates": [
+        {
+            "id": "healthcare_patient_registration",
+            "name": "Patient Registration Confirmation",
+            "type": "transactional",
+            "trigger": "After a patient portal account is successfully created",
+            "subject": "Your Patient Account Has Been Created",
+            "body": "Dear {{patient_name}},\n\nThank you for registering with {{clinic_name}}. Your patient portal account has been successfully created.\n\nRegistration details:\n- Patient reference: {{patient_id}}\n- Registration date: {{registration_date}}\n- Portal access: {{portal_url}}\n\nPlease use the official portal to manage appointments and access available patient services.\n\nFor assistance, contact {{contact_details}}.\n\nRegards,\nPatient Services Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_appointment_confirmed",
+            "name": "Appointment Confirmation",
+            "type": "transactional",
+            "trigger": "After an appointment booking is confirmed",
+            "subject": "Appointment Confirmed – {{appointment_reference}}",
+            "body": "Dear {{patient_name}},\n\nYour appointment with {{clinic_name}} has been confirmed.\n\nAppointment details:\n- Reference: {{appointment_reference}}\n- Date: {{appointment_date}}\n- Time: {{appointment_time}} {{time_zone}}\n- Doctor or department: {{doctor_or_department}}\n- Location: {{clinic_address}}\n\nManage your appointment: {{appointment_url}}\n\nPlease contact {{contact_details}} if you need assistance.\n\nRegards,\nAppointments Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_appointment_reminder",
+            "name": "Appointment Reminder",
+            "type": "transactional",
+            "trigger": "At the configured interval before an appointment",
+            "subject": "Reminder: Your Appointment Is Coming Up",
+            "body": "Dear {{patient_name}},\n\nThis is a reminder about your upcoming appointment at {{clinic_name}}.\n\nDate: {{appointment_date}}\nTime: {{appointment_time}} {{time_zone}}\nLocation: {{clinic_address}}\nAppointment reference: {{appointment_reference}}\n\nPlease arrive {{arrival_time}} before your scheduled appointment, if requested by the clinic. To reschedule, contact {{contact_details}}.\n\nRegards,\nPatient Coordination Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_appointment_rescheduled",
+            "name": "Appointment Rescheduling",
+            "type": "transactional",
+            "trigger": "When an appointment date or time is changed",
+            "subject": "Update to Your Appointment – {{appointment_reference}}",
+            "body": "Dear {{patient_name}},\n\nYour appointment with {{clinic_name}} has been updated.\n\nPrevious appointment: {{previous_date_time}}\nNew appointment: {{new_date_time}}\nDoctor or department: {{doctor_or_department}}\nLocation: {{clinic_address}}\n\nPlease review the updated details and contact {{contact_details}} if you have questions.\n\nRegards,\nAppointments Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_appointment_cancelled",
+            "name": "Appointment Cancellation",
+            "type": "transactional",
+            "trigger": "When an appointment cancellation is completed",
+            "subject": "Appointment Cancellation Confirmation",
+            "body": "Dear {{patient_name}},\n\nThis email confirms the cancellation of your appointment.\n\nAppointment reference: {{appointment_reference}}\nOriginal date: {{appointment_date}}\nDepartment: {{department}}\n\nTo schedule a new appointment, visit {{booking_url}} or contact {{contact_details}}.\n\nRegards,\nPatient Services Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_lab_results",
+            "name": "Laboratory Results Available",
+            "type": "transactional",
+            "trigger": "When laboratory results are released to the patient portal",
+            "subject": "An Update on Your Laboratory Results",
+            "body": "Dear {{patient_name}},\n\nAn update regarding your laboratory results is now available through your secure patient portal. For confidentiality, medical results are not included in this email.\n\nAccess your patient portal: {{secure_portal_url}}\n\nPlease contact {{contact_details}} if you need help accessing your results. For questions about the results, consult your treating healthcare professional.\n\nRegards,\nLaboratory Services Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_prescription_ready",
+            "name": "Prescription Ready Notification",
+            "type": "transactional",
+            "trigger": "When a prescription is ready for collection or delivery",
+            "subject": "Your Prescription Is Ready",
+            "body": "Dear {{patient_name}},\n\nAn update regarding your prescription is available.\n\nPrescription reference: {{prescription_id}}\nPharmacy: {{pharmacy_name}}\nCollection or delivery status: {{status}}\n\nFor collection details or assistance, contact {{pharmacy_contact_details}}. Please follow your healthcare professional’s instructions regarding your medication.\n\nRegards,\nPharmacy Services Team"
+        },
+        {
+            "id": "healthcare_telehealth_scheduled",
+            "name": "Telehealth Appointment",
+            "type": "transactional",
+            "trigger": "After an online consultation is booked",
+            "subject": "Your Online Consultation Is Scheduled",
+            "body": "Dear {{patient_name}},\n\nYour online consultation with {{clinic_name}} has been scheduled.\n\nDate: {{appointment_date}}\nTime: {{appointment_time}} {{time_zone}}\nDoctor: {{doctor_name}}\nConsultation reference: {{appointment_id}}\n\nJoin your consultation using the secure link: {{telehealth_url}}\n\nPlease check your internet connection and device before the appointment.\n\nRegards,\nTelehealth Support Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_follow_up",
+            "name": "Patient Follow-Up",
+            "type": "care",
+            "trigger": "After a visit when a follow-up communication is appropriate",
+            "subject": "Follow-Up Appointment and Care Reminder",
+            "body": "Dear {{patient_name}},\n\nThank you for attending your recent appointment at {{clinic_name}}. Please review the follow-up instructions provided by your healthcare professional.\n\nTo arrange your next appointment, use this link: {{booking_url}}\n\nFor medical concerns, contact your healthcare provider directly. This email is an administrative reminder and is not a substitute for medical advice.\n\nRegards,\nPatient Care Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_screening_reminder",
+            "name": "Preventive Screening Reminder",
+            "type": "care",
+            "trigger": "When a patient is eligible for a routine screening reminder under clinic policy",
+            "subject": "A Reminder to Discuss Your Health Screening",
+            "body": "Dear {{patient_name}},\n\nThis is a reminder that you may be due to discuss a routine health screening with a qualified healthcare professional. The appropriate screening depends on your individual circumstances and clinical guidance.\n\nSchedule an appointment: {{booking_url}}\n\nFor questions about recommended screenings, please contact {{clinic_contact_details}}.\n\nRegards,\nPreventive Care Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_payment_receipt",
+            "name": "Medical Bill and Payment Receipt",
+            "type": "transactional",
+            "trigger": "After a patient bill payment is received",
+            "subject": "Payment Receipt – Invoice {{invoice_number}}",
+            "body": "Dear {{patient_name}},\n\nThank you. We have successfully received your payment.\n\nPayment details:\n- Invoice number: {{invoice_number}}\n- Amount paid: {{amount}}\n- Payment date: {{payment_date}}\n- Payment reference: {{transaction_id}}\n- Status: {{payment_status}}\n\nView your receipt securely: {{receipt_url}}\n\nFor billing enquiries, contact {{billing_contact_details}}.\n\nRegards,\nBilling Department\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_feedback_request",
+            "name": "Patient Feedback Request",
+            "type": "engagement",
+            "trigger": "After a visit or completed service, subject to consent and clinic policy",
+            "subject": "We Value Your Feedback",
+            "body": "Dear {{patient_name}},\n\nThank you for choosing {{clinic_name}} for your care. We are committed to improving the patient experience and would appreciate your feedback about your recent visit.\n\nShare your feedback: {{survey_url}}\n\nThank you for your time.\n\nRegards,\nPatient Experience Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_privacy_update",
+            "name": "Privacy Policy Update",
+            "type": "compliance",
+            "trigger": "When the patient privacy notice or policy is updated",
+            "subject": "Important Notice: Patient Privacy Policy Update",
+            "body": "Dear {{patient_name}},\n\nWe have updated the privacy policy for {{clinic_name}}, effective {{effective_date}}. The updated policy explains how we handle personal information and patient data.\n\nReview the updated policy: {{privacy_policy_url}}\n\nPlease contact our privacy team at {{privacy_contact_email}} if you have questions.\n\nRegards,\nPrivacy and Compliance Team\n{{clinic_name}}"
+        },
+        {
+            "id": "healthcare_hours_notice",
+            "name": "Operating Hours or Holiday Notice",
+            "type": "service",
+            "trigger": "When clinic operating hours change",
+            "subject": "Important Notice: Changes to Clinic Operating Hours",
+            "body": "Dear {{patient_name}},\n\nPlease note that {{clinic_name}} will have revised operating hours due to {{reason}}.\n\nDate: {{date}}\nRevised hours: {{operating_hours}}\nRegular operations resume: {{resume_date}}\n\nFor appointment-related assistance, contact {{contact_details}}. For urgent medical emergencies, contact your local emergency services.\n\nRegards,\nAdministration Team\n{{clinic_name}}"
+        }
+    ]
+}

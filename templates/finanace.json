@@ -1,0 +1,89 @@
+{
+    "schema_version": "1.0.0",
+    "industry_id": "finance",
+    "industry": "Financial Services & Banking",
+    "description": "Professional account, transaction, statement, verification, lending, fraud, complaint, and service emails for financial institutions.",
+    "placeholder_format": "Use double-brace variables, for example {{customer_name}}. Replace every placeholder before sending.",
+    "templates": [
+        {
+            "id": "finance_account_opened",
+            "name": "Account Opening Confirmation",
+            "type": "transactional",
+            "trigger": "After an account opening application is approved and the account is created",
+            "subject": "Your Account Has Been Successfully Created",
+            "body": "Dear {{customer_name}},\n\nThank you for choosing {{bank_name}}. Your account opening process has been completed successfully.\n\nAccount details:\n- Account type: {{account_type}}\n- Account reference: {{masked_account_reference}}\n- Activation status: {{activation_status}}\n\nFor your protection, we will never ask you to share your password, PIN, or one-time password by email.\n\nFor assistance, contact our official support team using the contact details on {{official_website}}.\n\nRegards,\nCustomer Service Team\n{{bank_name}}"
+        },
+        {
+            "id": "finance_transaction_alert",
+            "name": "Transaction Alert",
+            "type": "transactional",
+            "trigger": "After a debit or credit transaction is recorded",
+            "subject": "Transaction Alert – {{transaction_reference}}",
+            "body": "Dear {{customer_name}},\n\nA transaction has been recorded on your {{bank_name}} account.\n\nTransaction details:\n- Type: {{transaction_type}}\n- Amount: {{amount}}\n- Date and time: {{date_time}}\n- Reference number: {{transaction_reference}}\n- Account: {{masked_account_number}}\n\nIf you do not recognise this transaction, contact the institution through its official app, website, or published phone number.\n\nRegards,\nTransaction Monitoring Team\n{{bank_name}}"
+        },
+        {
+            "id": "finance_monthly_statement",
+            "name": "Monthly Account Statement",
+            "type": "transactional",
+            "trigger": "When a monthly statement is generated",
+            "subject": "Your Monthly Account Statement Is Available",
+            "body": "Dear {{customer_name}},\n\nYour account statement for {{statement_month}} is now available.\n\nStatement details:\n- Account reference: {{masked_account_number}}\n- Statement period: {{start_date}} to {{end_date}}\n- Generated on: {{generation_date}}\n\nAccess your statement securely through the official banking app or by visiting {{official_website}}.\n\nPlease do not share your banking credentials with anyone.\n\nRegards,\nAccount Services Team\n{{bank_name}}"
+        },
+        {
+            "id": "finance_login_alert",
+            "name": "New Login Alert",
+            "type": "security",
+            "trigger": "After a login event that meets the institution’s alert rules",
+            "subject": "Security Alert: New Login to Your Banking Account",
+            "body": "Dear {{customer_name}},\n\nA login to your online banking account was detected.\n\nActivity details:\n- Date and time: {{date_time}}\n- Device: {{device}}\n- Approximate location: {{location}}\n\nIf you recognise this activity, no action is required. If you do not, contact the institution using the official contact details published on {{official_website}}.\n\nRegards,\nDigital Banking Security Team\n{{bank_name}}"
+        },
+        {
+            "id": "finance_kyc_reminder",
+            "name": "KYC Update Reminder",
+            "type": "compliance",
+            "trigger": "When an authorised account review identifies an outstanding verification requirement",
+            "subject": "Action Required: Review Your Account Verification",
+            "body": "Dear {{customer_name}},\n\nOur records indicate that an account verification update may be required. Please review any outstanding requirements through the official {{bank_name}} application or website.\n\nOpen the official verification portal: {{official_verification_url}}\n\nFor your security, do not send identity documents or sensitive banking information by replying to this email. If you have already completed the process, please disregard this reminder.\n\nRegards,\nCustomer Verification Team\n{{bank_name}}"
+        },
+        {
+            "id": "finance_card_dispatched",
+            "name": "Card Dispatch Notification",
+            "type": "transactional",
+            "trigger": "When a payment card is dispatched",
+            "subject": "Your Banking Card Has Been Dispatched",
+            "body": "Dear {{customer_name}},\n\nYour {{card_type}} card has been dispatched.\n\nDispatch details:\n- Card: {{masked_card_number}}\n- Dispatch date: {{dispatch_date}}\n- Courier: {{courier_name}}\n- Tracking reference: {{tracking_number}}\n- Expected delivery: {{expected_delivery_date}}\n\nTrack your delivery: {{tracking_url}}\n\nNever share your card PIN, CVV, or one-time password.\n\nRegards,\nCard Services Team\n{{bank_name}}"
+        },
+        {
+            "id": "finance_loan_status",
+            "name": "Loan Application Update",
+            "type": "transactional",
+            "trigger": "When a loan application status changes",
+            "subject": "Update on Your Loan Application – {{application_id}}",
+            "body": "Dear {{customer_name}},\n\nThank you for applying for a loan with {{bank_name}}. Your application status has been updated.\n\nApplication reference: {{application_id}}\nLoan type: {{loan_type}}\nCurrent status: {{application_status}}\nNext step: {{next_step}}\n\nCheck your application through the official portal: {{application_url}}\n\nRegards,\nLoan Services Team\n{{bank_name}}"
+        },
+        {
+            "id": "finance_suspicious_activity",
+            "name": "Suspicious Activity Alert",
+            "type": "security",
+            "trigger": "When monitoring systems flag activity requiring customer review",
+            "subject": "Important Security Notice Regarding Your Account",
+            "body": "Dear {{customer_name}},\n\nWe detected activity that requires your attention. To help protect your account, review your recent activity using the official {{bank_name}} application or website.\n\nDo not share your one-time password, PIN, password, or card details with anyone. Do not use links in unexpected messages to access your account.\n\nFor urgent assistance, contact the fraud prevention team using the number published on {{official_website}}.\n\nRegards,\nFraud Prevention Team\n{{bank_name}}"
+        },
+        {
+            "id": "finance_complaint_ack",
+            "name": "Complaint Acknowledgement",
+            "type": "customer_service",
+            "trigger": "When a customer complaint is registered",
+            "subject": "We Have Received Your Complaint – {{complaint_id}}",
+            "body": "Dear {{customer_name}},\n\nThank you for contacting {{bank_name}}. We have successfully registered your complaint.\n\nComplaint reference: {{complaint_id}}\nDate received: {{complaint_date}}\nIssue category: {{issue_category}}\nExpected response timeline: {{response_timeline}}\n\nYou can track your complaint through {{complaint_tracking_url}}.\n\nRegards,\nCustomer Resolution Team\n{{bank_name}}"
+        },
+        {
+            "id": "finance_service_update",
+            "name": "Banking Service Update",
+            "type": "service",
+            "trigger": "When a service, fee, process, or operating arrangement changes",
+            "subject": "Important Service Update – {{bank_name}}",
+            "body": "Dear {{customer_name}},\n\nWe would like to inform you about an upcoming change to our banking services.\n\nService: {{service_name}}\nEffective date: {{effective_date}}\nDetails of the change: {{change_description}}\nCustomer action required: {{customer_action}}\n\nFor further information, visit {{official_website}} or contact our official support team.\n\nThank you for banking with us.\n\nRegards,\nCustomer Communications Team\n{{bank_name}}"
+        }
+    ]
+}
